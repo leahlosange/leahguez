@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>leahguez.com</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #faf8f5;
+      --card: #fff;
+      --text: #2c2a26;
+      --text-soft: #5c5a56;
+      --accent: #8b7355;
+      --accent-light: #c4a77d;
+      --flower: #9a7b4f;
+      --shadow: 0 4px 20px rgba(44, 42, 38, 0.08);
+      --radius: 16px;
+      --font-title: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'Outfit', system-ui, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-weight: 400;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: clamp(1rem, 4vw, 2rem);
+    }
+
+    .container {
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      padding: clamp(2rem, 8vw, 4rem) 0;
+    }
+
+    h1 {
+      font-family: var(--font-title);
+      font-size: clamp(1.75rem, 6vw, 2.5rem);
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: 0.02em;
+    }
+
+    .section {
+      padding: clamp(2rem, 6vw, 3rem) 0;
+      border-bottom: 1px solid rgba(44, 42, 38, 0.06);
+    }
+
+    .section:last-of-type {
+      border-bottom: 0;
+    }
+
+    .section h2 {
+      font-family: var(--font-title);
+      font-size: clamp(1.2rem, 3.5vw, 1.45rem);
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: 0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .section p {
+      color: var(--text-soft);
+      font-size: clamp(0.9rem, 2.5vw, 0.98rem);
+    }
+
+    #fleur-period {
+      font-weight: 400;
+      color: var(--text-soft);
+      font-size: 0.9rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .fleur-grid {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .fleur-item {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .fleur-item figure {
+      margin: 0;
+    }
+
+    .fleur-item .fleur-img-wrap {
+      width: 100%;
+      aspect-ratio: 1;
+      overflow: hidden;
+      margin-bottom: 0.5rem;
+      background: rgba(44, 42, 38, 0.06);
+    }
+
+    .fleur-item .fleur-img-wrap.no-img {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 120px;
+    }
+
+    .fleur-item .fleur-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .fleur-item:hover .fleur-img-wrap img {
+      transform: scale(1.03);
+    }
+
+    .fleur-item figcaption {
+      font-family: var(--font-title);
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: 0.01em;
+    }
+
+    .photo-wrap {
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+      overflow: hidden;
+      background: transparent;
+      aspect-ratio: 4/3;
+    }
+
+    .photo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 0 1rem;
+      color: var(--text-soft);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>leahguez.com</h1>
+    </header>
+
+    <section class="section" aria-labelledby="calendrier-title">
+      <h2 id="calendrier-title">Fleurs de saison</h2>
+      <p id="fleur-period"></p>
+      <ul class="fleur-grid" id="fleur-list" aria-label="Fleurs du moment"></ul>
+    </section>
+
+    <section class="section" aria-labelledby="nous-title">
+      <h2 id="nous-title">Nous</h2>
+      <div class="photo-wrap">
+        <img src="nous.jpg" alt="Nous deux" />
+      </div>
+    </section>
+
+    <footer>
+      <p>Bientôt un vrai portfolio. En attendant, quelques fantaisies.</p>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      var mois = [
+        'janvier', 'février', 'mars', 'avril', 'mai', 'juin',
+        'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'
+      ];
+      var fleurs = [
+        ['Perce-neige', 'Hellébore', 'Violette'],
+        ['Crocus', 'Mimosa', 'Primevère'],
+        ['Narcisse', 'Tulipe', 'Primevère', 'Jacinthe'],
+        ['Jonquille', 'Magnolia', 'Pâquerette', 'Tulipe'],
+        ['Pivoine', 'Lilas', 'Muguet', 'Glycine'],
+        ['Rose', 'Lavande', 'Coquelicot', 'Pavot'],
+        ['Tournesol', 'Bleuet', 'Dahlia', 'Lavande'],
+        ['Hortensia', 'Lys', 'Dahlia', 'Œillet'],
+        ['Aster', 'Chrysanthème', 'Bruyère', 'Sedum'],
+        ['Dahlia', 'Cosmos', 'Colchique', 'Aster'],
+        ['Chrysanthème', 'Bruyère', 'Hellébore', 'Violette'],
+        ['Rose de Noël', 'Jasmin d\'hiver', 'Perce-neige']
+      ];
+      function slug(s) {
+        return s.toLowerCase()
+          .replace(/\s+/g, '-')
+          .replace(/['']/g, '-')
+          .replace(/[àâä]/g, 'a').replace(/[éèêë]/g, 'e').replace(/[îï]/g, 'i')
+          .replace(/[ôö]/g, 'o').replace(/[ùûü]/g, 'u').replace(/[œ]/g, 'oe')
+          .replace(/[^a-z0-9-]/g, '');
+      }
+      var i = new Date().getMonth();
+      document.getElementById('fleur-period').textContent = 'En ce moment (' + mois[i] + ')';
+      var ul = document.getElementById('fleur-list');
+      fleurs[i].forEach(function (nom) {
+        var li = document.createElement('li');
+        li.className = 'fleur-item';
+        var fig = document.createElement('figure');
+        var wrap = document.createElement('div');
+        wrap.className = 'fleur-img-wrap';
+        var img = document.createElement('img');
+        img.src = 'fleurs/' + slug(nom) + '.jpg';
+        img.alt = nom;
+        img.loading = 'lazy';
+        img.onerror = function () { this.style.display = 'none'; this.parentNode.classList.add('no-img'); };
+        var cap = document.createElement('figcaption');
+        cap.textContent = nom;
+        wrap.appendChild(img);
+        fig.appendChild(wrap);
+        fig.appendChild(cap);
+        li.appendChild(fig);
+        ul.appendChild(li);
+      });
+    })();
+  </script>
+</body>
+</html>
