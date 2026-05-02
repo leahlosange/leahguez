@@ -540,6 +540,8 @@
       var panelNuit = document.getElementById('panel-nuit');
       var allPhotoSrcs = [];
       var modalReturnFocus = null;
+      var modalScrollX = 0;
+      var modalScrollY = 0;
 
       var photoModal = document.getElementById('photo-modal');
       var photoModalImg = document.getElementById('photo-modal-img');
@@ -548,6 +550,8 @@
       var btnRoulette = document.getElementById('btn-roulette');
 
       function openPhotoModal(absUrl, returnFocusEl) {
+        modalScrollX = window.scrollX || window.pageXOffset || 0;
+        modalScrollY = window.scrollY || window.pageYOffset || 0;
         modalReturnFocus = returnFocusEl || null;
         photoModalImg.src = absUrl;
         photoModalImg.alt = 'photo';
@@ -562,13 +566,25 @@
         photoModalImg.removeAttribute('src');
         var back = modalReturnFocus;
         modalReturnFocus = null;
+        var focusOpts = { preventScroll: true };
         if (back && typeof back.focus === 'function') {
           try {
-            back.focus();
-          } catch (e) {}
+            back.focus(focusOpts);
+          } catch (e) {
+            try {
+              back.focus();
+            } catch (e2) {}
+          }
         } else {
-          btnRoulette.focus();
+          try {
+            btnRoulette.focus(focusOpts);
+          } catch (e) {
+            btnRoulette.focus();
+          }
         }
+        requestAnimationFrame(function () {
+          window.scrollTo(modalScrollX, modalScrollY);
+        });
       }
 
       photoModalClose.addEventListener('click', closePhotoModal);
