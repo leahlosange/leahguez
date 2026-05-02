@@ -543,6 +543,36 @@
       var modalScrollX = 0;
       var modalScrollY = 0;
 
+      function lockScrollForModal() {
+        modalScrollX = window.scrollX || window.pageXOffset || document.documentElement.scrollLeft || 0;
+        modalScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+        document.body.style.position = 'fixed';
+        document.body.style.top = -modalScrollY + 'px';
+        document.body.style.left = '0';
+        document.body.style.right = '0';
+        document.body.style.width = '100%';
+        document.body.classList.add('photo-modal-open');
+      }
+
+      function unlockScrollAfterModal() {
+        document.body.classList.remove('photo-modal-open');
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.left = '';
+        document.body.style.right = '';
+        document.body.style.width = '';
+        var x = modalScrollX;
+        var y = modalScrollY;
+        window.scrollTo(x, y);
+        if (document.scrollingElement) {
+          document.scrollingElement.scrollLeft = x;
+          document.scrollingElement.scrollTop = y;
+        }
+        requestAnimationFrame(function () {
+          window.scrollTo(x, y);
+        });
+      }
+
       var photoModal = document.getElementById('photo-modal');
       var photoModalImg = document.getElementById('photo-modal-img');
       var photoModalClose = document.getElementById('photo-modal-close');
@@ -550,20 +580,18 @@
       var btnRoulette = document.getElementById('btn-roulette');
 
       function openPhotoModal(absUrl, returnFocusEl) {
-        modalScrollX = window.scrollX || window.pageXOffset || 0;
-        modalScrollY = window.scrollY || window.pageYOffset || 0;
         modalReturnFocus = returnFocusEl || null;
         photoModalImg.src = absUrl;
         photoModalImg.alt = 'photo';
         photoModal.hidden = false;
-        document.body.classList.add('photo-modal-open');
+        lockScrollForModal();
         photoModalClose.focus();
       }
 
       function closePhotoModal() {
         photoModal.hidden = true;
-        document.body.classList.remove('photo-modal-open');
         photoModalImg.removeAttribute('src');
+        unlockScrollAfterModal();
         var back = modalReturnFocus;
         modalReturnFocus = null;
         var focusOpts = { preventScroll: true };
@@ -582,8 +610,10 @@
             btnRoulette.focus();
           }
         }
+        var x = modalScrollX;
+        var y = modalScrollY;
         requestAnimationFrame(function () {
-          window.scrollTo(modalScrollX, modalScrollY);
+          window.scrollTo(x, y);
         });
       }
 
