@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="lg">
+  <defs>
+    <filter id="g" x="-35%" y="-35%" width="170%" height="170%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="0.55" result="b"/>
+      <feFlood flood-color="#42F5FF" flood-opacity="0.5" result="f"/>
+      <feComposite in="f" in2="b" operator="in" result="glow"/>
+      <feMerge>
+        <feMergeNode in="glow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="32" height="32" rx="4" fill="#00040A"/>
+  <text
+    x="16" y="21"
+    text-anchor="middle"
+    font-family="'Neue Haas Grotesk Text', 'Helvetica Neue', Helvetica, Arial, sans-serif"
+    font-weight="700"
+    font-size="12.5"
+    letter-spacing="0.06em"
+    fill="#42F5FF"
+    filter="url(#g)">lg</text>
+</svg>
