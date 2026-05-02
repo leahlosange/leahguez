@@ -69,11 +69,27 @@ def avg_hue_accent_neutral(im_rgb: Image.Image) -> tuple[float, str, bool, float
     return hue, f"hsl({hue:.0f},40%,42%)", False, lum
 
 
-def interleave_color_and_neutral(items: list[dict]) -> list[dict]:
-    """Mélange homogène : N&B entrelacés avec les photos couleur (tri hue vs luminance)."""
+def _colorful_sort_key_jour(item: dict) -> tuple:
+    return (item["hue"], item["src"])
+
+
+def _colorful_sort_key_nuit(item: dict) -> tuple:
+    """Vert (~120°) en tête, rouge (~0°) en fin : [120..360] puis jaune→rouge."""
+    h = item["hue"]
+    src = item["src"]
+    if h >= 120:
+        return (0, h, src)
+    return (1, -h, src)
+
+
+def interleave_color_and_neutral(items: list[dict], mode: str) -> list[dict]:
+    """Mélange homogène : N&B entrelacés avec les photos couleur (tri teinte selon mode)."""
     colorful = [x for x in items if not x["_neutral"]]
     neutral = [x for x in items if x["_neutral"]]
-    colorful.sort(key=lambda x: (x["hue"], x["src"]))
+    if mode == "nuit":
+        colorful.sort(key=_colorful_sort_key_nuit)
+    else:
+        colorful.sort(key=_colorful_sort_key_jour)
     neutral.sort(key=lambda x: (x["_lum"], x["src"]))
     merged: list[dict] = []
     for i in range(max(len(colorful), len(neutral))):
@@ -144,7 +160,7 @@ def process_folder(src: Path, out_sub: str, used: set[str]) -> list[dict]:
             "_lum": lum_v,
         })
 
-    return interleave_color_and_neutral(items)
+    return interleave_color_and_neutral(items, out_sub)
 
 
 def gradient_pair(items: list[dict]) -> tuple[str, str]:
