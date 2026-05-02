@@ -139,12 +139,23 @@
       box-sizing: border-box;
     }
 
+    .menu-row {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.35rem 0.75rem;
+      width: 100%;
+    }
+
     .menu-tabs {
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
       align-items: center;
       gap: 0.45rem 0.85rem;
+      flex: 0 1 auto;
     }
 
     .menu-tab {
@@ -270,7 +281,9 @@
 
     /* Roulette — inspo Text_block_color : dégradé arc-en-ciel qui défile */
     .roulette-wrap {
-      margin: 0.15rem 0 0.35rem;
+      margin: 0;
+      flex: 0 0 auto;
+      align-self: center;
     }
 
     .btn-roulette {
@@ -281,21 +294,27 @@
       text-transform: lowercase;
       border: none;
       cursor: pointer;
-      padding: 0.5rem 0.75rem;
-      border-radius: 3px;
+      padding: 0.35rem 0;
+      margin: 0;
+      border-radius: 0;
       position: relative;
-      background: rgba(0, 0, 0, 0.55);
-      box-shadow:
-        0 0 0 1px rgba(255, 255, 255, 0.12),
-        0 0 20px rgba(255, 0, 200, 0.15);
-      transition: transform 0.15s ease, box-shadow 0.2s ease;
+      background: none;
+      box-shadow: none;
+      transition: transform 0.15s ease, opacity 0.15s ease;
     }
 
     .btn-roulette:hover {
       transform: scale(1.02);
-      box-shadow:
-        0 0 0 1px rgba(255, 255, 255, 0.2),
-        0 0 28px rgba(0, 255, 200, 0.25);
+      opacity: 1;
+    }
+
+    .btn-roulette:focus {
+      outline: none;
+    }
+
+    .btn-roulette:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px;
     }
 
     .btn-roulette__label {
@@ -471,15 +490,17 @@
     </div>
 
     <nav class="side-menu" aria-label="Navigation">
-      <div class="menu-tabs" role="tablist" aria-label="jour ou nuit">
-        <button type="button" class="menu-tab" role="tab" id="tab-jour" aria-controls="panel-jour" aria-selected="false">jour</button>
-        <button type="button" class="menu-tab" role="tab" id="tab-nuit" aria-controls="panel-nuit" aria-selected="false">nuit</button>
-      </div>
-      <div class="roulette-wrap">
-        <button type="button" class="btn-roulette" id="btn-roulette" aria-haspopup="dialog">
-          <span class="btn-roulette__spin" aria-hidden="true">◎</span>
-          <span class="btn-roulette__label"> random photo roulette</span>
-        </button>
+      <div class="menu-row">
+        <div class="menu-tabs" role="tablist" aria-label="jour ou nuit">
+          <button type="button" class="menu-tab" role="tab" id="tab-jour" aria-controls="panel-jour" aria-selected="false">jour</button>
+          <button type="button" class="menu-tab" role="tab" id="tab-nuit" aria-controls="panel-nuit" aria-selected="false">nuit</button>
+        </div>
+        <div class="roulette-wrap">
+          <button type="button" class="btn-roulette" id="btn-roulette" aria-haspopup="dialog">
+            <span class="btn-roulette__spin" aria-hidden="true">◎</span>
+            <span class="btn-roulette__label"> random photo roulette</span>
+          </button>
+        </div>
       </div>
       <div class="gallery-view">
         <div class="photo-panel" id="panel-jour" role="tabpanel" aria-labelledby="tab-jour" hidden>
