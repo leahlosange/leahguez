@@ -542,16 +542,66 @@
       var modalReturnFocus = null;
       var modalScrollX = 0;
       var modalScrollY = 0;
+      var modalScrollParent = null;
+      var modalScrollParentTop = 0;
+
+      function findInnerScrollParent(node) {
+        if (!node) return null;
+        for (var p = node.parentElement; p; p = p.parentElement) {
+          if (p === document.body || p === document.documentElement) break;
+          var st = window.getComputedStyle(p);
+          var oy = st.overflowY;
+          if ((oy === 'auto' || oy === 'scroll' || oy === 'overlay') && p.scrollHeight > p.clientHeight + 1) {
+            return p;
+          }
+        }
+        return null;
+      }
+
+      function captureDocumentScroll(fromEl) {
+        var se = document.scrollingElement || document.documentElement;
+        var body = document.body;
+        var wy = typeof window.pageYOffset === 'number' ? window.pageYOffset : (typeof window.scrollY === 'number' ? window.scrollY : 0);
+        var wx = typeof window.pageXOffset === 'number' ? window.pageXOffset : (typeof window.scrollX === 'number' ? window.scrollX : 0);
+        modalScrollY = Math.max(se.scrollTop || 0, wy, body ? body.scrollTop || 0 : 0);
+        modalScrollX = Math.max(se.scrollLeft || 0, wx, body ? body.scrollLeft || 0 : 0);
+        modalScrollParent = findInnerScrollParent(fromEl);
+        modalScrollParentTop = modalScrollParent ? modalScrollParent.scrollTop : 0;
+      }
 
       function lockScrollForModal() {
-        modalScrollX = window.scrollX || window.pageXOffset || document.documentElement.scrollLeft || 0;
-        modalScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
         document.body.style.position = 'fixed';
         document.body.style.top = -modalScrollY + 'px';
         document.body.style.left = '0';
         document.body.style.right = '0';
         document.body.style.width = '100%';
         document.body.classList.add('photo-modal-open');
+      }
+
+      function applySavedScroll() {
+        var x = modalScrollX;
+        var y = modalScrollY;
+        if (modalScrollParent) {
+          try {
+            modalScrollParent.scrollTop = modalScrollParentTop;
+          } catch (e) {}
+        }
+        var se = document.scrollingElement || document.documentElement;
+        try {
+          se.scrollLeft = x;
+          se.scrollTop = y;
+        } catch (e) {}
+        try {
+          document.documentElement.scrollLeft = x;
+          document.documentElement.scrollTop = y;
+        } catch (e) {}
+        try {
+          if (document.body) {
+            document.body.scrollLeft = x;
+            document.body.scrollTop = y;
+          }
+        } catch (e) {}
+        window.scrollTo(x, y);
       }
 
       function unlockScrollAfterModal() {
@@ -561,16 +611,18 @@
         document.body.style.left = '';
         document.body.style.right = '';
         document.body.style.width = '';
-        var x = modalScrollX;
-        var y = modalScrollY;
-        window.scrollTo(x, y);
-        if (document.scrollingElement) {
-          document.scrollingElement.scrollLeft = x;
-          document.scrollingElement.scrollTop = y;
-        }
+        applySavedScroll();
+      }
+
+      function scheduleScrollRestore() {
+        applySavedScroll();
         requestAnimationFrame(function () {
-          window.scrollTo(x, y);
+          applySavedScroll();
+          requestAnimationFrame(applySavedScroll);
         });
+        setTimeout(applySavedScroll, 0);
+        setTimeout(applySavedScroll, 32);
+        setTimeout(applySavedScroll, 120);
       }
 
       var photoModal = document.getElementById('photo-modal');
@@ -581,18 +633,26 @@
 
       function openPhotoModal(absUrl, returnFocusEl) {
         modalReturnFocus = returnFocusEl || null;
+        captureDocumentScroll(returnFocusEl);
         photoModalImg.src = absUrl;
         photoModalImg.alt = 'photo';
-        photoModal.hidden = false;
         lockScrollForModal();
-        photoModalClose.focus();
+        photoModal.hidden = false;
+        try {
+          photoModalClose.focus({ preventScroll: true });
+        } catch (e) {
+          photoModalClose.focus();
+        }
       }
 
       function closePhotoModal() {
-        photoModal.hidden = true;
-        photoModalImg.removeAttribute('src');
-        unlockScrollAfterModal();
         var back = modalReturnFocus;
+        try {
+          if (document.activeElement) document.activeElement.blur();
+        } catch (e) {}
+        photoModal.hidden = true;
+        unlockScrollAfterModal();
+        photoModalImg.removeAttribute('src');
         modalReturnFocus = null;
         var focusOpts = { preventScroll: true };
         if (back && typeof back.focus === 'function') {
@@ -610,11 +670,7 @@
             btnRoulette.focus();
           }
         }
-        var x = modalScrollX;
-        var y = modalScrollY;
-        requestAnimationFrame(function () {
-          window.scrollTo(x, y);
-        });
+        scheduleScrollRestore();
       }
 
       photoModalClose.addEventListener('click', closePhotoModal);
