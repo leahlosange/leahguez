@@ -112,6 +112,7 @@ def process_folder(src: Path, out_sub: str, used: set[str]) -> list[dict]:
         small.thumbnail((220, 220))
         hue, accent, sort_key = avg_hue_accent_sort(small)
         im.thumbnail((MAX_EDGE, MAX_EDGE), Image.Resampling.LANCZOS)
+        ow, oh = im.size
         try:
             im.save(out_path, "WEBP", quality=WEBP_Q, method=6)
         except Exception as e:
@@ -120,6 +121,8 @@ def process_folder(src: Path, out_sub: str, used: set[str]) -> list[dict]:
         rel = f"portfolio/{out_sub}/{slug}.webp"
         items.append({
             "src": rel,
+            "w": int(ow),
+            "h": int(oh),
             "hue": round(hue, 2),
             "accent": accent,
             "_sort": sort_key,

@@ -3,156 +3,218 @@
     "items": [
       {
         "src": "portfolio/jour/000014340026.webp",
+        "w": 1600,
+        "h": 1061,
         "hue": 26.61,
         "accent": "hsl(27,40%,42%)"
       },
       {
         "src": "portfolio/jour/19-r0291920.webp",
+        "w": 1600,
+        "h": 1060,
         "hue": 30.98,
         "accent": "hsl(31,40%,42%)"
       },
       {
         "src": "portfolio/jour/maroc-08.webp",
+        "w": 1600,
+        "h": 1061,
         "hue": 31.92,
         "accent": "hsl(32,40%,42%)"
       },
       {
         "src": "portfolio/jour/000014340008.webp",
+        "w": 1600,
+        "h": 1061,
         "hue": 32.3,
         "accent": "hsl(32,40%,42%)"
       },
       {
         "src": "portfolio/jour/000014340005.webp",
+        "w": 1600,
+        "h": 1061,
         "hue": 32.85,
         "accent": "hsl(33,40%,42%)"
       },
       {
         "src": "portfolio/jour/000014340030.webp",
+        "w": 1600,
+        "h": 1061,
         "hue": 33.85,
         "accent": "hsl(34,40%,42%)"
       },
       {
         "src": "portfolio/jour/000086030019-copie.webp",
+        "w": 1061,
+        "h": 1600,
         "hue": 34.01,
         "accent": "hsl(34,40%,42%)"
       },
       {
         "src": "portfolio/jour/000014340007.webp",
+        "w": 1600,
+        "h": 1061,
         "hue": 34.98,
         "accent": "hsl(35,40%,42%)"
       },
       {
         "src": "portfolio/jour/000014340033.webp",
+        "w": 1600,
+        "h": 1061,
         "hue": 36.36,
         "accent": "hsl(36,40%,42%)"
       },
       {
         "src": "portfolio/jour/ile-14.webp",
+        "w": 1079,
+        "h": 1600,
         "hue": 36.86,
         "accent": "hsl(37,40%,42%)"
       },
       {
         "src": "portfolio/jour/royan-44.webp",
+        "w": 1600,
+        "h": 1060,
         "hue": 37.58,
         "accent": "hsl(38,40%,42%)"
       },
       {
         "src": "portfolio/jour/ile-9.webp",
+        "w": 1079,
+        "h": 1600,
         "hue": 41.03,
         "accent": "hsl(41,40%,42%)"
       },
       {
         "src": "portfolio/jour/07052022-000050180024.webp",
+        "w": 1600,
+        "h": 1118,
         "hue": 42.79,
         "accent": "hsl(43,40%,42%)"
       },
       {
         "src": "portfolio/jour/07052022-000050180034.webp",
+        "w": 1600,
+        "h": 1061,
         "hue": 44.94,
         "accent": "hsl(45,40%,42%)"
       },
       {
         "src": "portfolio/jour/corse-05.webp",
+        "w": 1600,
+        "h": 1060,
         "hue": 50.9,
         "accent": "hsl(51,40%,42%)"
       },
       {
         "src": "portfolio/jour/000086030013.webp",
+        "w": 1600,
+        "h": 1061,
         "hue": 62.11,
         "accent": "hsl(62,40%,42%)"
       },
       {
         "src": "portfolio/jour/capture-one-catalog72.webp",
+        "w": 1427,
+        "h": 1600,
         "hue": 65.12,
         "accent": "hsl(65,40%,42%)"
       },
       {
         "src": "portfolio/jour/capture-one-catalog69.webp",
+        "w": 1600,
+        "h": 1067,
         "hue": 66.33,
         "accent": "hsl(66,40%,42%)"
       },
       {
         "src": "portfolio/jour/img016.webp",
+        "w": 1600,
+        "h": 1231,
         "hue": 80.19,
         "accent": "hsl(80,40%,42%)"
       },
       {
         "src": "portfolio/jour/20231018-photo08-8a.webp",
+        "w": 1600,
+        "h": 1074,
         "hue": 176.48,
         "accent": "hsl(176,40%,42%)"
       },
       {
         "src": "portfolio/jour/img008.webp",
+        "w": 1600,
+        "h": 1231,
         "hue": 183.83,
         "accent": "hsl(184,40%,42%)"
       },
       {
         "src": "portfolio/jour/cannes-38.webp",
+        "w": 1060,
+        "h": 1600,
         "hue": 194.41,
         "accent": "hsl(194,40%,42%)"
       },
       {
         "src": "portfolio/jour/corse-14.webp",
+        "w": 1600,
+        "h": 1060,
         "hue": 202.79,
         "accent": "hsl(203,40%,42%)"
       },
       {
         "src": "portfolio/jour/manif-3.webp",
+        "w": 1600,
+        "h": 1200,
         "hue": 121.13,
         "accent": "hsl(121,40%,42%)"
       },
       {
         "src": "portfolio/jour/ile-18.webp",
+        "w": 1061,
+        "h": 1600,
         "hue": 128.47,
         "accent": "hsl(128,40%,42%)"
       },
       {
         "src": "portfolio/jour/diplo-03.webp",
+        "w": 1600,
+        "h": 1060,
         "hue": 131.79,
         "accent": "hsl(132,40%,42%)"
       },
       {
         "src": "portfolio/jour/20231018-photo18-18a-2.webp",
+        "w": 1600,
+        "h": 1074,
         "hue": 162.71,
         "accent": "hsl(163,40%,42%)"
       },
       {
         "src": "portfolio/jour/maroc-01.webp",
+        "w": 1061,
+        "h": 1600,
         "hue": 167.0,
         "accent": "hsl(167,40%,42%)"
       },
       {
         "src": "portfolio/jour/20231018-photo04-4a.webp",
+        "w": 1074,
+        "h": 1600,
         "hue": 175.45,
         "accent": "hsl(175,40%,42%)"
       },
       {
         "src": "portfolio/jour/000014340035.webp",
+        "w": 1600,
+        "h": 1061,
         "hue": 194.56,
         "accent": "hsl(195,40%,42%)"
       },
       {
         "src": "portfolio/jour/julie-2.webp",
+        "w": 1600,
+        "h": 1060,
         "hue": 218.19,
         "accent": "hsl(218,40%,42%)"
       }
@@ -166,181 +228,253 @@
     "items": [
       {
         "src": "portfolio/nuit/perpignon-32.webp",
+        "w": 1060,
+        "h": 1600,
         "hue": 0.96,
         "accent": "hsl(1,40%,42%)"
       },
       {
         "src": "portfolio/nuit/perpignon-22.webp",
+        "w": 1060,
+        "h": 1600,
         "hue": 9.39,
         "accent": "hsl(9,40%,42%)"
       },
       {
         "src": "portfolio/nuit/pompiersexy-12.webp",
+        "w": 1060,
+        "h": 1600,
         "hue": 13.28,
         "accent": "hsl(13,40%,42%)"
       },
       {
         "src": "portfolio/nuit/perpignon-40.webp",
+        "w": 1600,
+        "h": 1060,
         "hue": 23.38,
         "accent": "hsl(23,40%,42%)"
       },
       {
         "src": "portfolio/nuit/perpignon-41.webp",
+        "w": 1600,
+        "h": 1060,
         "hue": 27.64,
         "accent": "hsl(28,40%,42%)"
       },
       {
         "src": "portfolio/nuit/annivleah-17.webp",
+        "w": 1600,
+        "h": 1060,
         "hue": 51.18,
         "accent": "hsl(51,40%,42%)"
       },
       {
         "src": "portfolio/nuit/adieujulie-31.webp",
+        "w": 1060,
+        "h": 1600,
         "hue": 53.23,
         "accent": "hsl(53,40%,42%)"
       },
       {
         "src": "portfolio/nuit/adieujulie-13.webp",
+        "w": 1060,
+        "h": 1600,
         "hue": 60.72,
         "accent": "hsl(61,40%,42%)"
       },
       {
         "src": "portfolio/nuit/possession-3-16-grande.webp",
+        "w": 1280,
+        "h": 848,
         "hue": 67.05,
         "accent": "hsl(67,40%,42%)"
       },
       {
         "src": "portfolio/nuit/annivleah-16.webp",
+        "w": 1600,
+        "h": 1060,
         "hue": 68.76,
         "accent": "hsl(69,40%,42%)"
       },
       {
         "src": "portfolio/nuit/adieujulie-22.webp",
+        "w": 1060,
+        "h": 1600,
         "hue": 100.82,
         "accent": "hsl(101,40%,42%)"
       },
       {
         "src": "portfolio/nuit/r0291652.webp",
+        "w": 1060,
+        "h": 1600,
         "hue": 103.19,
         "accent": "hsl(103,40%,42%)"
       },
       {
         "src": "portfolio/nuit/diplo-26.webp",
+        "w": 1600,
+        "h": 1060,
         "hue": 103.65,
         "accent": "hsl(104,40%,42%)"
       },
       {
         "src": "portfolio/nuit/annivleah-05.webp",
+        "w": 1600,
+        "h": 1060,
         "hue": 107.55,
         "accent": "hsl(108,40%,42%)"
       },
       {
         "src": "portfolio/nuit/cannes-49.webp",
+        "w": 1600,
+        "h": 1060,
         "hue": 158.22,
         "accent": "hsl(158,40%,42%)"
       },
       {
         "src": "portfolio/nuit/possession-3-2-grande.webp",
+        "w": 848,
+        "h": 1280,
         "hue": 187.65,
         "accent": "hsl(188,40%,42%)"
       },
       {
         "src": "portfolio/nuit/perpignon-37.webp",
+        "w": 1600,
+        "h": 1060,
         "hue": 332.6,
         "accent": "hsl(333,40%,42%)"
       },
       {
         "src": "portfolio/nuit/cannes-20.webp",
+        "w": 1600,
+        "h": 1060,
         "hue": 38.12,
         "accent": "hsl(38,40%,42%)"
       },
       {
         "src": "portfolio/nuit/perpignon-43.webp",
+        "w": 1600,
+        "h": 1060,
         "hue": 56.14,
         "accent": "hsl(56,40%,42%)"
       },
       {
         "src": "portfolio/nuit/perpignon-19.webp",
+        "w": 1060,
+        "h": 1600,
         "hue": 68.26,
         "accent": "hsl(68,40%,42%)"
       },
       {
         "src": "portfolio/nuit/r0291633.webp",
+        "w": 1600,
+        "h": 1060,
         "hue": 74.87,
         "accent": "hsl(75,40%,42%)"
       },
       {
         "src": "portfolio/nuit/annnivmarie-09.webp",
+        "w": 1600,
+        "h": 1060,
         "hue": 76.64,
         "accent": "hsl(77,40%,42%)"
       },
       {
         "src": "portfolio/nuit/diplo-28.webp",
+        "w": 1600,
+        "h": 1060,
         "hue": 85.23,
         "accent": "hsl(85,40%,42%)"
       },
       {
         "src": "portfolio/nuit/annivleah-19.webp",
+        "w": 1600,
+        "h": 1060,
         "hue": 86.68,
         "accent": "hsl(87,40%,42%)"
       },
       {
         "src": "portfolio/nuit/000012100027-copie.webp",
+        "w": 1600,
+        "h": 1061,
         "hue": 91.78,
         "accent": "hsl(92,40%,42%)"
       },
       {
         "src": "portfolio/nuit/000015750023.webp",
+        "w": 1600,
+        "h": 1061,
         "hue": 96.56,
         "accent": "hsl(97,40%,42%)"
       },
       {
         "src": "portfolio/nuit/perpignon-29.webp",
+        "w": 1141,
+        "h": 1600,
         "hue": 101.39,
         "accent": "hsl(101,40%,42%)"
       },
       {
         "src": "portfolio/nuit/adieujulie-28.webp",
+        "w": 1060,
+        "h": 1600,
         "hue": 104.64,
         "accent": "hsl(105,40%,42%)"
       },
       {
         "src": "portfolio/nuit/diplo-22.webp",
+        "w": 1600,
+        "h": 1060,
         "hue": 105.13,
         "accent": "hsl(105,40%,42%)"
       },
       {
         "src": "portfolio/nuit/diplo-27.webp",
+        "w": 1600,
+        "h": 1060,
         "hue": 118.85,
         "accent": "hsl(119,40%,42%)"
       },
       {
         "src": "portfolio/nuit/retouche-es-03.webp",
+        "w": 1061,
+        "h": 1600,
         "hue": 122.08,
         "accent": "hsl(122,40%,42%)"
       },
       {
         "src": "portfolio/nuit/000012100016.webp",
+        "w": 1600,
+        "h": 1061,
         "hue": 129.09,
         "accent": "hsl(129,40%,42%)"
       },
       {
         "src": "portfolio/nuit/diplo-11.webp",
+        "w": 1060,
+        "h": 1600,
         "hue": 140.09,
         "accent": "hsl(140,40%,42%)"
       },
       {
         "src": "portfolio/nuit/000015750019.webp",
+        "w": 1600,
+        "h": 1061,
         "hue": 146.11,
         "accent": "hsl(146,40%,42%)"
       },
       {
         "src": "portfolio/nuit/r0291416.webp",
+        "w": 1060,
+        "h": 1600,
         "hue": 147.96,
         "accent": "hsl(148,40%,42%)"
       },
       {
         "src": "portfolio/nuit/cannes-11.webp",
+        "w": 1600,
+        "h": 1060,
         "hue": 160.07,
         "accent": "hsl(160,40%,42%)"
       }

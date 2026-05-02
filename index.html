@@ -92,6 +92,12 @@
       }
     }
 
+    body.photo-modal-open::before,
+    body.photo-modal-open::after {
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
     .shell {
       position: relative;
       z-index: 1;
@@ -238,14 +244,23 @@
     }
 
     .photo-mosaic {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
       gap: clamp(10px, 2vw, 16px);
       padding: 0;
       width: 100%;
       max-width: 100%;
       box-sizing: border-box;
       background: transparent;
+    }
+
+    .photo-mosaic__col {
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: clamp(10px, 2vw, 16px);
     }
 
     .photo-mosaic__cell {
@@ -257,6 +272,16 @@
       padding: clamp(4px, 0.75vw, 7px);
       padding-bottom: clamp(5px, 0.9vw, 8px);
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+    }
+
+    .photo-mosaic__cell:focus {
+      outline: none;
+    }
+
+    .photo-mosaic__cell:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 2px;
     }
 
     .photo-mosaic__cell img {
@@ -265,6 +290,7 @@
       display: block;
       vertical-align: middle;
       background: #0a0a0a;
+      pointer-events: none;
       transition: transform 0.35s ease, filter 0.35s ease;
     }
 
@@ -372,6 +398,7 @@
       align-items: center;
       justify-content: center;
       padding: clamp(0.75rem, 3vw, 1.5rem);
+      isolation: isolate;
     }
 
     .photo-modal[hidden] {
@@ -381,8 +408,8 @@
     .photo-modal__backdrop {
       position: absolute;
       inset: 0;
-      background: rgba(0, 2, 8, 0.88);
-      backdrop-filter: blur(4px);
+      background: rgba(0, 0, 0, 0.92);
+      backdrop-filter: blur(6px);
     }
 
     .photo-modal__content {
@@ -394,6 +421,7 @@
       flex-direction: column;
       align-items: stretch;
       gap: 0.75rem;
+      filter: none;
     }
 
     .photo-modal__close {
@@ -404,16 +432,16 @@
       font-family: var(--font-body);
       font-size: 1.75rem;
       line-height: 1;
-      color: var(--text-soft);
+      color: rgba(255, 255, 255, 0.75);
       background: none;
       border: none;
       cursor: pointer;
       padding: 0.25rem 0.5rem;
-      text-shadow: 0 0 12px var(--cyan);
+      text-shadow: none;
     }
 
     .photo-modal__close:hover {
-      color: var(--cyan);
+      color: #fff;
     }
 
     .photo-modal__img {
@@ -424,7 +452,8 @@
       height: auto;
       margin: 0 auto;
       object-fit: contain;
-      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(66, 245, 255, 0.2);
+      filter: none !important;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.65);
     }
 
     .photo-modal__actions {
@@ -478,7 +507,10 @@
 
     @media (max-width: 400px) {
       .photo-mosaic {
-        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+      .photo-mosaic__col {
+        gap: 8px;
       }
     }
   </style>
@@ -539,6 +571,7 @@
       var panelNuit = document.getElementById('panel-nuit');
       var allPhotoSrcs = [];
       var modalShareUrl = '';
+      var modalReturnFocus = null;
 
       var photoModal = document.getElementById('photo-modal');
       var photoModalImg = document.getElementById('photo-modal-img');
@@ -547,7 +580,8 @@
       var photoModalShare = document.getElementById('photo-modal-share');
       var btnRoulette = document.getElementById('btn-roulette');
 
-      function openPhotoModal(absUrl) {
+      function openPhotoModal(absUrl, returnFocusEl) {
+        modalReturnFocus = returnFocusEl || null;
         modalShareUrl = absUrl;
         photoModalImg.src = absUrl;
         photoModalImg.alt = 'photo';
@@ -561,7 +595,15 @@
         document.body.classList.remove('photo-modal-open');
         photoModalImg.removeAttribute('src');
         modalShareUrl = '';
-        btnRoulette.focus();
+        var back = modalReturnFocus;
+        modalReturnFocus = null;
+        if (back && typeof back.focus === 'function') {
+          try {
+            back.focus();
+          } catch (e) {}
+        } else {
+          btnRoulette.focus();
+        }
       }
 
       photoModalClose.addEventListener('click', closePhotoModal);
@@ -613,24 +655,91 @@
       function fillMosaic(gridId, errId, block) {
         var grid = document.getElementById(gridId);
         var err = document.getElementById(errId);
+        grid.textContent = '';
         if (!block || !block.items || !block.items.length) {
           err.hidden = false;
           err.textContent = 'Aucune image (lance scripts/build_portfolio.py).';
           grid.removeAttribute('aria-busy');
           return;
         }
-        block.items.forEach(function (item) {
+        err.hidden = true;
+        var colA = document.createElement('div');
+        var colB = document.createElement('div');
+        colA.className = 'photo-mosaic__col';
+        colB.className = 'photo-mosaic__col';
+        grid.appendChild(colA);
+        grid.appendChild(colB);
+        var cols = [colA, colB];
+        var GAP = 14;
+        var CELL_PAD = 20;
+
+        function estimateColWidth() {
+          var w = grid.clientWidth;
+          if (w < 48) {
+            w = Math.min(1400, Math.max(320, window.innerWidth - 32));
+          }
+          return Math.max(72, (w - GAP) / 2 - 12);
+        }
+
+        function estCellHeight(item) {
+          var iw = item.w && item.w > 0 ? item.w : 4;
+          var ih = item.h && item.h > 0 ? item.h : 3;
+          return (ih / iw) * estimateColWidth() + CELL_PAD;
+        }
+
+        function buildCell(item, colEl) {
           var cell = document.createElement('div');
           cell.className = 'photo-mosaic__cell';
+          cell.setAttribute('role', 'button');
+          cell.setAttribute('tabindex', '0');
+          cell.setAttribute('aria-label', 'Agrandir la photo');
           cell.style.setProperty('--accent', item.accent);
           var img = document.createElement('img');
           img.src = item.src;
           img.alt = '';
           img.loading = 'lazy';
+          img.draggable = false;
+          function openThis() {
+            openPhotoModal(new URL(item.src, window.location.href).href, cell);
+          }
+          cell.addEventListener('click', openThis);
+          cell.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              openThis();
+            }
+          });
           cell.appendChild(img);
-          grid.appendChild(cell);
-        });
+          colEl.appendChild(cell);
+        }
+
+        function distribute() {
+          colA.textContent = '';
+          colB.textContent = '';
+          var h0 = 0;
+          var h1 = 0;
+          block.items.forEach(function (item) {
+            var idx = h0 <= h1 ? 0 : 1;
+            if (idx === 0) {
+              h0 += estCellHeight(item);
+            } else {
+              h1 += estCellHeight(item);
+            }
+            buildCell(item, cols[idx]);
+          });
+        }
+
+        distribute();
         grid.removeAttribute('aria-busy');
+
+        if (typeof ResizeObserver !== 'undefined') {
+          var t;
+          var ro = new ResizeObserver(function () {
+            clearTimeout(t);
+            t = setTimeout(distribute, 120);
+          });
+          ro.observe(grid);
+        }
       }
 
       fetch('portfolio/manifest.json')
