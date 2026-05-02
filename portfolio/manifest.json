@@ -92,24 +92,9 @@
         "accent": "hsl(66,40%,42%)"
       },
       {
-        "src": "portfolio/jour/07052022-000050150019.webp",
-        "hue": 68.36,
-        "accent": "hsl(68,40%,42%)"
-      },
-      {
         "src": "portfolio/jour/img016.webp",
         "hue": 80.19,
         "accent": "hsl(80,40%,42%)"
-      },
-      {
-        "src": "portfolio/jour/07052022-000050150008.webp",
-        "hue": 123.44,
-        "accent": "hsl(123,40%,42%)"
-      },
-      {
-        "src": "portfolio/jour/royan-04.webp",
-        "hue": 152.19,
-        "accent": "hsl(152,40%,42%)"
       },
       {
         "src": "portfolio/jour/20231018-photo08-8a.webp",
@@ -117,19 +102,9 @@
         "accent": "hsl(176,40%,42%)"
       },
       {
-        "src": "portfolio/jour/cannes-34.webp",
-        "hue": 180.92,
-        "accent": "hsl(181,40%,42%)"
-      },
-      {
         "src": "portfolio/jour/img008.webp",
         "hue": 183.83,
         "accent": "hsl(184,40%,42%)"
-      },
-      {
-        "src": "portfolio/jour/07052022-000050150002.webp",
-        "hue": 185.23,
-        "accent": "hsl(185,40%,42%)"
       },
       {
         "src": "portfolio/jour/cannes-38.webp",
@@ -140,16 +115,6 @@
         "src": "portfolio/jour/corse-14.webp",
         "hue": 202.79,
         "accent": "hsl(203,40%,42%)"
-      },
-      {
-        "src": "portfolio/jour/manif-5.webp",
-        "hue": 90.4,
-        "accent": "hsl(90,40%,42%)"
-      },
-      {
-        "src": "portfolio/jour/20231018-photo01-1a.webp",
-        "hue": 116.25,
-        "accent": "hsl(116,40%,42%)"
       },
       {
         "src": "portfolio/jour/manif-3.webp",
@@ -165,16 +130,6 @@
         "src": "portfolio/jour/diplo-03.webp",
         "hue": 131.79,
         "accent": "hsl(132,40%,42%)"
-      },
-      {
-        "src": "portfolio/jour/000015750019.webp",
-        "hue": 146.11,
-        "accent": "hsl(146,40%,42%)"
-      },
-      {
-        "src": "portfolio/jour/royan-47.webp",
-        "hue": 161.03,
-        "accent": "hsl(161,40%,42%)"
       },
       {
         "src": "portfolio/jour/20231018-photo18-18a-2.webp",
@@ -215,21 +170,6 @@
         "accent": "hsl(1,40%,42%)"
       },
       {
-        "src": "portfolio/nuit/pompiersexy-05.webp",
-        "hue": 1.12,
-        "accent": "hsl(1,40%,42%)"
-      },
-      {
-        "src": "portfolio/nuit/capture-one-catalog51.webp",
-        "hue": 7.32,
-        "accent": "hsl(7,40%,42%)"
-      },
-      {
-        "src": "portfolio/nuit/royan-56.webp",
-        "hue": 9.12,
-        "accent": "hsl(9,40%,42%)"
-      },
-      {
         "src": "portfolio/nuit/perpignon-22.webp",
         "hue": 9.39,
         "accent": "hsl(9,40%,42%)"
@@ -240,11 +180,6 @@
         "accent": "hsl(13,40%,42%)"
       },
       {
-        "src": "portfolio/nuit/royan-28.webp",
-        "hue": 22.53,
-        "accent": "hsl(23,40%,42%)"
-      },
-      {
         "src": "portfolio/nuit/perpignon-40.webp",
         "hue": 23.38,
         "accent": "hsl(23,40%,42%)"
@@ -253,16 +188,6 @@
         "src": "portfolio/nuit/perpignon-41.webp",
         "hue": 27.64,
         "accent": "hsl(28,40%,42%)"
-      },
-      {
-        "src": "portfolio/nuit/dscf1364.webp",
-        "hue": 28.78,
-        "accent": "hsl(29,40%,42%)"
-      },
-      {
-        "src": "portfolio/nuit/home180.webp",
-        "hue": 46.51,
-        "accent": "hsl(47,40%,42%)"
       },
       {
         "src": "portfolio/nuit/annivleah-17.webp",
@@ -325,11 +250,6 @@
         "accent": "hsl(333,40%,42%)"
       },
       {
-        "src": "portfolio/nuit/cannes-45.webp",
-        "hue": 34.79,
-        "accent": "hsl(35,40%,42%)"
-      },
-      {
         "src": "portfolio/nuit/cannes-20.webp",
         "hue": 38.12,
         "accent": "hsl(38,40%,42%)"
@@ -340,19 +260,9 @@
         "accent": "hsl(56,40%,42%)"
       },
       {
-        "src": "portfolio/nuit/annnivmarie-08.webp",
-        "hue": 59.24,
-        "accent": "hsl(59,40%,42%)"
-      },
-      {
         "src": "portfolio/nuit/perpignon-19.webp",
         "hue": 68.26,
         "accent": "hsl(68,40%,42%)"
-      },
-      {
-        "src": "portfolio/nuit/perpignon-29.webp",
-        "hue": 74.22,
-        "accent": "hsl(74,40%,42%)"
       },
       {
         "src": "portfolio/nuit/r0291633.webp",
@@ -365,29 +275,9 @@
         "accent": "hsl(77,40%,42%)"
       },
       {
-        "src": "portfolio/nuit/ju-2.webp",
-        "hue": 80.93,
-        "accent": "hsl(81,40%,42%)"
-      },
-      {
-        "src": "portfolio/nuit/perpignon-10.webp",
-        "hue": 81.71,
-        "accent": "hsl(82,40%,42%)"
-      },
-      {
-        "src": "portfolio/nuit/home182.webp",
-        "hue": 83.47,
-        "accent": "hsl(83,40%,42%)"
-      },
-      {
         "src": "portfolio/nuit/diplo-28.webp",
         "hue": 85.23,
         "accent": "hsl(85,40%,42%)"
-      },
-      {
-        "src": "portfolio/nuit/cannes-40.webp",
-        "hue": 86.33,
-        "accent": "hsl(86,40%,42%)"
       },
       {
         "src": "portfolio/nuit/annivleah-19.webp",
@@ -403,6 +293,11 @@
         "src": "portfolio/nuit/000015750023.webp",
         "hue": 96.56,
         "accent": "hsl(97,40%,42%)"
+      },
+      {
+        "src": "portfolio/nuit/perpignon-29.webp",
+        "hue": 101.39,
+        "accent": "hsl(101,40%,42%)"
       },
       {
         "src": "portfolio/nuit/adieujulie-28.webp",
@@ -433,6 +328,11 @@
         "src": "portfolio/nuit/diplo-11.webp",
         "hue": 140.09,
         "accent": "hsl(140,40%,42%)"
+      },
+      {
+        "src": "portfolio/nuit/000015750019.webp",
+        "hue": 146.11,
+        "accent": "hsl(146,40%,42%)"
       },
       {
         "src": "portfolio/nuit/r0291416.webp",

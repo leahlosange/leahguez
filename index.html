@@ -268,6 +268,195 @@
       margin-top: 0.5rem;
     }
 
+    /* Roulette — inspo Text_block_color : dégradé arc-en-ciel qui défile */
+    .roulette-wrap {
+      margin: 0.15rem 0 0.35rem;
+    }
+
+    .btn-roulette {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: clamp(0.78rem, 2.1vw, 0.92rem);
+      letter-spacing: 0.1em;
+      text-transform: lowercase;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem 0.75rem;
+      border-radius: 3px;
+      position: relative;
+      background: rgba(0, 0, 0, 0.55);
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.12),
+        0 0 20px rgba(255, 0, 200, 0.15);
+      transition: transform 0.15s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-roulette:hover {
+      transform: scale(1.02);
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.2),
+        0 0 28px rgba(0, 255, 200, 0.25);
+    }
+
+    .btn-roulette__label {
+      display: inline-block;
+      background: linear-gradient(
+        90deg,
+        #ff2bd6,
+        #ff3040,
+        #ff9500,
+        #ffee33,
+        #7aff4a,
+        #42f5ff,
+        #a78bfa,
+        #ff2bd6
+      );
+      background-size: 400% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+      animation: roulette-gradient 3.2s linear infinite;
+      filter: drop-shadow(0 0 8px rgba(255, 100, 180, 0.45));
+    }
+
+    .btn-roulette__spin {
+      display: inline-block;
+      animation: roulette-wobble 0.55s ease-in-out infinite;
+    }
+
+    @keyframes roulette-gradient {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    @keyframes roulette-wobble {
+      0%, 100% { transform: rotate(-2deg); }
+      50% { transform: rotate(2deg); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .btn-roulette__label {
+        animation: none;
+        background-position: 50% 50%;
+      }
+      .btn-roulette__spin {
+        animation: none;
+      }
+    }
+
+    .photo-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 10050;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(0.75rem, 3vw, 1.5rem);
+    }
+
+    .photo-modal[hidden] {
+      display: none !important;
+    }
+
+    .photo-modal__backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 2, 8, 0.88);
+      backdrop-filter: blur(4px);
+    }
+
+    .photo-modal__content {
+      position: relative;
+      z-index: 1;
+      max-width: min(96vw, 1200px);
+      max-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.75rem;
+    }
+
+    .photo-modal__close {
+      position: absolute;
+      top: -0.25rem;
+      right: 0;
+      transform: translateY(-100%);
+      font-family: var(--font-body);
+      font-size: 1.75rem;
+      line-height: 1;
+      color: var(--text-soft);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.25rem 0.5rem;
+      text-shadow: 0 0 12px var(--cyan);
+    }
+
+    .photo-modal__close:hover {
+      color: var(--cyan);
+    }
+
+    .photo-modal__img {
+      display: block;
+      max-width: 100%;
+      max-height: min(78vh, 900px);
+      width: auto;
+      height: auto;
+      margin: 0 auto;
+      object-fit: contain;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(66, 245, 255, 0.2);
+    }
+
+    .photo-modal__actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .btn-share {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: clamp(0.8rem, 2vw, 0.9rem);
+      letter-spacing: 0.08em;
+      text-transform: lowercase;
+      color: #00040a;
+      background: linear-gradient(90deg, #42f5ff, #a78bfa, #ff2bd6);
+      background-size: 200% 100%;
+      border: none;
+      padding: 0.55rem 1.1rem;
+      border-radius: 3px;
+      cursor: pointer;
+      animation: roulette-gradient 5s linear infinite;
+    }
+
+    .btn-share:hover {
+      filter: brightness(1.12);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .btn-share {
+        animation: none;
+      }
+    }
+
+    body.photo-modal-open {
+      overflow: hidden;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
     @media (max-width: 400px) {
       .photo-mosaic {
         grid-template-columns: 1fr;
@@ -286,6 +475,12 @@
         <button type="button" class="menu-tab" role="tab" id="tab-jour" aria-controls="panel-jour" aria-selected="false">jour</button>
         <button type="button" class="menu-tab" role="tab" id="tab-nuit" aria-controls="panel-nuit" aria-selected="false">nuit</button>
       </div>
+      <div class="roulette-wrap">
+        <button type="button" class="btn-roulette" id="btn-roulette" aria-haspopup="dialog">
+          <span class="btn-roulette__spin" aria-hidden="true">◎</span>
+          <span class="btn-roulette__label"> random photo roulette</span>
+        </button>
+      </div>
       <div class="gallery-view">
         <div class="photo-panel" id="panel-jour" role="tabpanel" aria-labelledby="tab-jour" hidden>
           <section class="section" aria-label="photos jour">
@@ -303,12 +498,79 @@
     </nav>
   </div>
 
+  <div class="photo-modal" id="photo-modal" hidden role="dialog" aria-modal="true" aria-labelledby="photo-modal-title">
+    <div class="photo-modal__backdrop" id="photo-modal-backdrop"></div>
+    <div class="photo-modal__content">
+      <button type="button" class="photo-modal__close" id="photo-modal-close" aria-label="Fermer">×</button>
+      <h2 id="photo-modal-title" class="visually-hidden">Photo au hasard</h2>
+      <img class="photo-modal__img" id="photo-modal-img" alt="" />
+      <div class="photo-modal__actions">
+        <button type="button" class="btn-share" id="photo-modal-share">send to a friend</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     (function () {
       var tabJour = document.getElementById('tab-jour');
       var tabNuit = document.getElementById('tab-nuit');
       var panelJour = document.getElementById('panel-jour');
       var panelNuit = document.getElementById('panel-nuit');
+      var allPhotoSrcs = [];
+      var modalShareUrl = '';
+
+      var photoModal = document.getElementById('photo-modal');
+      var photoModalImg = document.getElementById('photo-modal-img');
+      var photoModalClose = document.getElementById('photo-modal-close');
+      var photoModalBackdrop = document.getElementById('photo-modal-backdrop');
+      var photoModalShare = document.getElementById('photo-modal-share');
+      var btnRoulette = document.getElementById('btn-roulette');
+
+      function openPhotoModal(absUrl) {
+        modalShareUrl = absUrl;
+        photoModalImg.src = absUrl;
+        photoModalImg.alt = 'photo';
+        photoModal.hidden = false;
+        document.body.classList.add('photo-modal-open');
+        photoModalClose.focus();
+      }
+
+      function closePhotoModal() {
+        photoModal.hidden = true;
+        document.body.classList.remove('photo-modal-open');
+        photoModalImg.removeAttribute('src');
+        modalShareUrl = '';
+        btnRoulette.focus();
+      }
+
+      photoModalClose.addEventListener('click', closePhotoModal);
+      photoModalBackdrop.addEventListener('click', closePhotoModal);
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !photoModal.hidden) closePhotoModal();
+      });
+
+      photoModalShare.addEventListener('click', function () {
+        if (!modalShareUrl) return;
+        var title = 'leahguez.com';
+        var text = 'Une photo depuis leahguez.com — ';
+        if (navigator.share) {
+          navigator.share({ title: title, text: text, url: modalShareUrl }).catch(function () {
+            mailtoShare();
+          });
+        } else {
+          mailtoShare();
+        }
+        function mailtoShare() {
+          window.location.href = 'mailto:?subject=' + encodeURIComponent('photo — leahguez.com') + '&body=' + encodeURIComponent(text + modalShareUrl);
+        }
+      });
+
+      btnRoulette.addEventListener('click', function () {
+        if (!allPhotoSrcs.length) return;
+        var rel = allPhotoSrcs[Math.floor(Math.random() * allPhotoSrcs.length)];
+        var abs = new URL(rel, window.location.href).href;
+        openPhotoModal(abs);
+      });
 
       function selectTab(key) {
         if (key === 'jour') {
@@ -358,6 +620,13 @@
         .then(function (data) {
           fillMosaic('photo-grid-jour', 'gallery-err-jour', data.jour);
           fillMosaic('photo-grid-nuit', 'gallery-err-nuit', data.nuit);
+          allPhotoSrcs = [];
+          if (data.jour && data.jour.items) {
+            data.jour.items.forEach(function (it) { allPhotoSrcs.push(it.src); });
+          }
+          if (data.nuit && data.nuit.items) {
+            data.nuit.items.forEach(function (it) { allPhotoSrcs.push(it.src); });
+          }
         })
         .catch(function () {
           ['gallery-err-jour', 'gallery-err-nuit'].forEach(function (id) {
