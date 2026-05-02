@@ -152,7 +152,7 @@
       font-weight: 700;
       font-size: clamp(0.85rem, 2.4vw, 1rem);
       letter-spacing: 0.14em;
-      text-transform: uppercase;
+      text-transform: lowercase;
       color: var(--cyan);
       filter: blur(0.35px);
       text-shadow:
@@ -214,7 +214,7 @@
       font-weight: 700;
       color: var(--cyan);
       letter-spacing: 0.06em;
-      text-transform: uppercase;
+      text-transform: lowercase;
       margin-bottom: 0.5rem;
       filter: blur(0.35px);
       text-shadow:
@@ -301,15 +301,15 @@
     </div>
 
     <nav class="side-menu" aria-label="Navigation">
-      <div class="menu-tabs" role="tablist" aria-label="Jour ou Nuit">
-        <button type="button" class="menu-tab" role="tab" id="tab-jour" aria-controls="panel-jour" aria-selected="false">Jour</button>
-        <button type="button" class="menu-tab" role="tab" id="tab-nuit" aria-controls="panel-nuit" aria-selected="false">Nuit</button>
+      <div class="menu-tabs" role="tablist" aria-label="jour ou nuit">
+        <button type="button" class="menu-tab" role="tab" id="tab-jour" aria-controls="panel-jour" aria-selected="false">jour</button>
+        <button type="button" class="menu-tab" role="tab" id="tab-nuit" aria-controls="panel-nuit" aria-selected="false">nuit</button>
       </div>
-      <p class="gallery-pick" id="gallery-pick">Clique sur <strong>Jour</strong> ou <strong>Nuit</strong> pour afficher les photos.</p>
+      <p class="gallery-pick" id="gallery-pick">Clique sur <strong>jour</strong> ou <strong>nuit</strong> pour afficher les photos.</p>
       <div class="gallery-view">
         <div class="photo-panel" id="panel-jour" role="tabpanel" aria-labelledby="tab-jour" hidden>
           <section class="section" aria-labelledby="jour-title">
-            <h2 id="jour-title">Jour</h2>
+            <h2 id="jour-title">jour</h2>
             <p class="gallery-hint">Tri par palette (dégradé de teintes).</p>
             <div class="photo-mosaic" id="photo-grid-jour" aria-busy="true"></div>
             <p class="gallery-error" id="gallery-err-jour" hidden></p>
@@ -317,7 +317,7 @@
         </div>
         <div class="photo-panel photo-panel--nuit" id="panel-nuit" role="tabpanel" aria-labelledby="tab-nuit" hidden>
           <section class="section" aria-labelledby="nuit-title">
-            <h2 id="nuit-title">Nuit</h2>
+            <h2 id="nuit-title">nuit</h2>
             <p class="gallery-hint">Tri par palette (dégradé de teintes).</p>
             <div class="photo-mosaic" id="photo-grid-nuit" aria-busy="true"></div>
             <p class="gallery-error" id="gallery-err-nuit" hidden></p>
