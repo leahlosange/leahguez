@@ -172,6 +172,10 @@
       transition: opacity 0.18s ease, visibility 0.18s ease;
     }
 
+    .nav-panel--portfolio {
+      max-width: min(960px, calc(100vw - 6.5rem));
+    }
+
     .nav-block:hover .nav-panel,
     .nav-block:focus-within .nav-panel {
       opacity: 1;
@@ -214,71 +218,50 @@
         0 0 24px rgba(23, 87, 177, 0.45);
     }
 
-    #fleur-period {
+    .gallery-hint {
       font-weight: 400;
       color: var(--text-soft);
-      font-size: 0.9rem;
-      margin-bottom: 1.25rem;
+      font-size: 0.82rem;
+      margin-bottom: 0.75rem;
     }
 
-    .fleur-grid {
-      list-style: none;
+    .photo-mosaic {
+      --mosaic-a: rgb(8, 18, 32);
+      --mosaic-b: rgb(18, 12, 28);
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-      gap: 1.25rem;
+      grid-template-columns: 1fr 1fr;
+      gap: 5px;
+      padding: 8px;
+      border-radius: 2px;
+      background: linear-gradient(158deg, var(--mosaic-a), var(--mosaic-b));
+      box-shadow: inset 0 0 0 1px rgba(66, 245, 255, 0.1);
     }
 
-    .fleur-item {
-      display: block;
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .fleur-item figure {
-      margin: 0;
-    }
-
-    .fleur-item .fleur-img-wrap {
-      width: 100%;
-      aspect-ratio: 1;
+    .photo-mosaic__cell {
+      position: relative;
       overflow: hidden;
-      margin-bottom: 0.5rem;
-      background: rgba(23, 87, 177, 0.15);
+      border-left: 3px solid var(--accent, rgba(66, 245, 255, 0.25));
+      background: rgba(0, 4, 10, 0.4);
+      line-height: 0;
     }
 
-    .fleur-item .fleur-img-wrap.no-img {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100px;
-    }
-
-    .fleur-item .fleur-placeholder {
-      font-size: 1.75rem;
-      line-height: 1;
-      opacity: 0.4;
-      color: var(--cyan-deep);
-      user-select: none;
-    }
-
-    .fleur-item .fleur-img-wrap img {
+    .photo-mosaic__cell img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: auto;
       display: block;
-      transition: transform 0.4s ease;
+      vertical-align: middle;
+      transition: transform 0.35s ease, filter 0.35s ease;
     }
 
-    .fleur-item:hover .fleur-img-wrap img {
-      transform: scale(1.03);
+    .photo-mosaic__cell:hover img {
+      transform: scale(1.02);
+      filter: brightness(1.06);
     }
 
-    .fleur-item figcaption {
-      font-family: var(--font-body);
-      font-size: 0.88rem;
-      font-weight: 400;
-      color: var(--text);
-      letter-spacing: 0.02em;
+    .gallery-error {
+      color: rgba(255, 160, 160, 0.85);
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
     }
 
     @media (max-width: 520px) {
@@ -301,21 +284,24 @@
     <nav class="side-menu" aria-label="Navigation">
       <div class="nav-block" tabindex="0">
         <span class="nav-label">Jour</span>
-        <div class="nav-panel nav-panel--jour">
-          <section class="section" aria-labelledby="calendrier-title">
-            <h2 id="calendrier-title">Fleurs de saison</h2>
-            <p id="fleur-period"></p>
-            <ul class="fleur-grid" id="fleur-list" aria-label="Fleurs du moment"></ul>
+        <div class="nav-panel nav-panel--jour nav-panel--portfolio">
+          <section class="section" aria-labelledby="jour-title">
+            <h2 id="jour-title">Jour</h2>
+            <p class="gallery-hint">Tri par palette (dégradé de teintes).</p>
+            <div class="photo-mosaic" id="photo-grid-jour" aria-busy="true"></div>
+            <p class="gallery-error" id="gallery-err-jour" hidden></p>
           </section>
         </div>
       </div>
 
       <div class="nav-block" tabindex="0">
         <span class="nav-label">Nuit</span>
-        <div class="nav-panel nav-panel--nuit">
+        <div class="nav-panel nav-panel--nuit nav-panel--portfolio">
           <section class="section" aria-labelledby="nuit-title">
             <h2 id="nuit-title">Nuit</h2>
-            <p>Page en cours d’écriture.</p>
+            <p class="gallery-hint">Tri par palette (dégradé de teintes).</p>
+            <div class="photo-mosaic" id="photo-grid-nuit" aria-busy="true"></div>
+            <p class="gallery-error" id="gallery-err-nuit" hidden></p>
           </section>
         </div>
       </div>
@@ -324,81 +310,52 @@
 
   <script>
     (function () {
-      var mois = [
-        'janvier', 'février', 'mars', 'avril', 'mai', 'juin',
-        'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'
-      ];
-      var fleurs = [
-        ['Perce-neige', 'Hellébore', 'Violette'],
-        ['Crocus', 'Mimosa', 'Primevère'],
-        ['Narcisse', 'Tulipe', 'Primevère', 'Jacinthe'],
-        ['Jonquille', 'Magnolia', 'Pâquerette', 'Tulipe'],
-        ['Pivoine', 'Lilas', 'Muguet', 'Glycine'],
-        ['Rose', 'Lavande', 'Coquelicot', 'Pavot'],
-        ['Tournesol', 'Bleuet', 'Dahlia', 'Lavande'],
-        ['Hortensia', 'Lys', 'Dahlia', 'Œillet'],
-        ['Aster', 'Chrysanthème', 'Bruyère', 'Sedum'],
-        ['Dahlia', 'Cosmos', 'Colchique', 'Aster'],
-        ['Chrysanthème', 'Bruyère', 'Hellébore', 'Violette'],
-        ['Rose de Noël', 'Jasmin d\'hiver', 'Perce-neige']
-      ];
-      function slug(s) {
-        return s.toLowerCase()
-          .replace(/\s+/g, '-')
-          .replace(/['']/g, '-')
-          .replace(/[àâä]/g, 'a').replace(/[éèêë]/g, 'e').replace(/[îï]/g, 'i')
-          .replace(/[ôö]/g, 'o').replace(/[ùûü]/g, 'u').replace(/[œ]/g, 'oe')
-          .replace(/[ç]/g, 'c')
-          .replace(/[^a-z0-9-]/g, '');
-      }
-      var slugsAvecPhoto = {
-        crocus: 1, glycine: 1, lilas: 1, mimosa: 1, muguet: 1, pivoine: 1, primevere: 1
-      };
-      function urlPhotoFleur(nom) {
-        var s = slug(nom);
-        if (slugsAvecPhoto[s]) return 'fleurs/' + s + '.jpg';
-        return null;
-      }
-      var i = new Date().getMonth();
-      document.getElementById('fleur-period').textContent = 'En ce moment (' + mois[i] + ')';
-      var ul = document.getElementById('fleur-list');
-      fleurs[i].forEach(function (nom) {
-        var li = document.createElement('li');
-        li.className = 'fleur-item';
-        var fig = document.createElement('figure');
-        var wrap = document.createElement('div');
-        wrap.className = 'fleur-img-wrap';
-        var url = urlPhotoFleur(nom);
-        if (url) {
-          var img = document.createElement('img');
-          img.src = url;
-          img.alt = nom;
-          img.loading = 'lazy';
-          img.onerror = function () {
-            this.remove();
-            wrap.classList.add('no-img');
-            var ph = document.createElement('span');
-            ph.className = 'fleur-placeholder';
-            ph.setAttribute('aria-hidden', 'true');
-            ph.textContent = '✿';
-            wrap.appendChild(ph);
-          };
-          wrap.appendChild(img);
-        } else {
-          wrap.classList.add('no-img');
-          var ph = document.createElement('span');
-          ph.className = 'fleur-placeholder';
-          ph.setAttribute('aria-hidden', 'true');
-          ph.textContent = '✿';
-          wrap.appendChild(ph);
+      function fillMosaic(gridId, errId, block) {
+        var grid = document.getElementById(gridId);
+        var err = document.getElementById(errId);
+        if (!block || !block.items || !block.items.length) {
+          err.hidden = false;
+          err.textContent = 'Aucune image (lance scripts/build_portfolio.py).';
+          grid.removeAttribute('aria-busy');
+          return;
         }
-        var cap = document.createElement('figcaption');
-        cap.textContent = nom;
-        fig.appendChild(wrap);
-        fig.appendChild(cap);
-        li.appendChild(fig);
-        ul.appendChild(li);
-      });
+        var g = block.gradient;
+        if (g && g.length === 2) {
+          grid.style.setProperty('--mosaic-a', g[0]);
+          grid.style.setProperty('--mosaic-b', g[1]);
+        }
+        block.items.forEach(function (item) {
+          var cell = document.createElement('div');
+          cell.className = 'photo-mosaic__cell';
+          cell.style.setProperty('--accent', item.accent);
+          var img = document.createElement('img');
+          img.src = item.src;
+          img.alt = '';
+          img.loading = 'lazy';
+          cell.appendChild(img);
+          grid.appendChild(cell);
+        });
+        grid.removeAttribute('aria-busy');
+      }
+
+      fetch('portfolio/manifest.json')
+        .then(function (r) {
+          if (!r.ok) throw new Error(r.status);
+          return r.json();
+        })
+        .then(function (data) {
+          fillMosaic('photo-grid-jour', 'gallery-err-jour', data.jour);
+          fillMosaic('photo-grid-nuit', 'gallery-err-nuit', data.nuit);
+        })
+        .catch(function () {
+          ['gallery-err-jour', 'gallery-err-nuit'].forEach(function (id) {
+            var el = document.getElementById(id);
+            el.hidden = false;
+            el.textContent = 'Impossible de charger portfolio/manifest.json.';
+          });
+          document.getElementById('photo-grid-jour').removeAttribute('aria-busy');
+          document.getElementById('photo-grid-nuit').removeAttribute('aria-busy');
+        });
     })();
   </script>
 </body>
