@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Génère portfolio/jour|nuit/*.webp depuis photos/jour|nuit et portfolio/manifest.json (tri par teinte)."""
+"""Génère portfolio/jour|nuit/*.webp depuis photos/jour|nuit et portfolio/manifest.json (couleurs + N&B entrelacés)."""
 from __future__ import annotations
 
 import colorsys
@@ -41,8 +41,8 @@ def rgb_to_hue(r: float, g: float, b: float) -> float:
     return h
 
 
-def avg_hue_accent_sort(im_rgb: Image.Image) -> tuple[float, str, float]:
-    """Retourne (teinte affichage, accent CSS, clé de tri pour dégradé)."""
+def avg_hue_accent_neutral(im_rgb: Image.Image) -> tuple[float, str, bool, float]:
+    """Retourne (teinte affichage / pseudo-teinte, accent CSS, est N&B, luminance 0–1)."""
     w, h = im_rgb.size
     pix = im_rgb.load()
     sr = sg = sb = n = 0
@@ -55,7 +55,7 @@ def avg_hue_accent_sort(im_rgb: Image.Image) -> tuple[float, str, float]:
             sb += b
             n += 1
     if not n:
-        return 0.0, "hsl(200,35%,35%)", 500.0
+        return 0.0, "hsl(200,35%,35%)", True, 0.5
     r, g, b = sr / n, sg / n, sb / n
     mx = max(r, g, b) / 255.0
     mn = min(r, g, b) / 255.0
@@ -63,13 +63,28 @@ def avg_hue_accent_sort(im_rgb: Image.Image) -> tuple[float, str, float]:
     lum = (r + g + b) / (3.0 * 255.0)
     hue = rgb_to_hue(r, g, b)
     if chroma < 0.04:
-        # Peu saturé : ordre par luminance après le spectre (360–720).
-        sort_key = 360.0 + lum * 360.0
-        disp_hue = lum * 360.0
-    else:
-        sort_key = hue
-        disp_hue = hue
-    return disp_hue, f"hsl({disp_hue:.0f},40%,42%)", sort_key
+        disp = lum * 360.0
+        lg = max(28, min(62, 28 + lum * 34))
+        return disp, f"hsl(0,0%,{lg:.0f}%)", True, lum
+    return hue, f"hsl({hue:.0f},40%,42%)", False, lum
+
+
+def interleave_color_and_neutral(items: list[dict]) -> list[dict]:
+    """Mélange homogène : N&B entrelacés avec les photos couleur (tri hue vs luminance)."""
+    colorful = [x for x in items if not x["_neutral"]]
+    neutral = [x for x in items if x["_neutral"]]
+    colorful.sort(key=lambda x: (x["hue"], x["src"]))
+    neutral.sort(key=lambda x: (x["_lum"], x["src"]))
+    merged: list[dict] = []
+    for i in range(max(len(colorful), len(neutral))):
+        if i < len(colorful):
+            merged.append(colorful[i])
+        if i < len(neutral):
+            merged.append(neutral[i])
+    for it in merged:
+        del it["_neutral"]
+        del it["_lum"]
+    return merged
 
 
 def safe_slug(name: str) -> str:
@@ -110,7 +125,7 @@ def process_folder(src: Path, out_sub: str, used: set[str]) -> list[dict]:
             continue
         small = im.copy()
         small.thumbnail((220, 220))
-        hue, accent, sort_key = avg_hue_accent_sort(small)
+        hue, accent, is_neutral, lum_v = avg_hue_accent_neutral(small)
         im.thumbnail((MAX_EDGE, MAX_EDGE), Image.Resampling.LANCZOS)
         ow, oh = im.size
         try:
@@ -125,13 +140,11 @@ def process_folder(src: Path, out_sub: str, used: set[str]) -> list[dict]:
             "h": int(oh),
             "hue": round(hue, 2),
             "accent": accent,
-            "_sort": sort_key,
+            "_neutral": is_neutral,
+            "_lum": lum_v,
         })
 
-    items.sort(key=lambda x: (x["_sort"], x["src"]))
-    for it in items:
-        del it["_sort"]
-    return items
+    return interleave_color_and_neutral(items)
 
 
 def gradient_pair(items: list[dict]) -> tuple[str, str]:

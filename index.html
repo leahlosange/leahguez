@@ -420,7 +420,7 @@
       display: flex;
       flex-direction: column;
       align-items: stretch;
-      gap: 0.75rem;
+      gap: 0;
       filter: none;
     }
 
@@ -454,39 +454,6 @@
       object-fit: contain;
       filter: none !important;
       box-shadow: 0 16px 48px rgba(0, 0, 0, 0.65);
-    }
-
-    .photo-modal__actions {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .btn-share {
-      font-family: var(--font-body);
-      font-weight: 700;
-      font-size: clamp(0.8rem, 2vw, 0.9rem);
-      letter-spacing: 0.08em;
-      text-transform: lowercase;
-      color: #00040a;
-      background: linear-gradient(90deg, #42f5ff, #a78bfa, #ff2bd6);
-      background-size: 200% 100%;
-      border: none;
-      padding: 0.55rem 1.1rem;
-      border-radius: 3px;
-      cursor: pointer;
-      animation: roulette-gradient 5s linear infinite;
-    }
-
-    .btn-share:hover {
-      filter: brightness(1.12);
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .btn-share {
-        animation: none;
-      }
     }
 
     body.photo-modal-open {
@@ -557,9 +524,6 @@
       <button type="button" class="photo-modal__close" id="photo-modal-close" aria-label="Fermer">×</button>
       <h2 id="photo-modal-title" class="visually-hidden">Photo au hasard</h2>
       <img class="photo-modal__img" id="photo-modal-img" alt="" />
-      <div class="photo-modal__actions">
-        <button type="button" class="btn-share" id="photo-modal-share">send to a friend</button>
-      </div>
     </div>
   </div>
 
@@ -570,19 +534,16 @@
       var panelJour = document.getElementById('panel-jour');
       var panelNuit = document.getElementById('panel-nuit');
       var allPhotoSrcs = [];
-      var modalShareUrl = '';
       var modalReturnFocus = null;
 
       var photoModal = document.getElementById('photo-modal');
       var photoModalImg = document.getElementById('photo-modal-img');
       var photoModalClose = document.getElementById('photo-modal-close');
       var photoModalBackdrop = document.getElementById('photo-modal-backdrop');
-      var photoModalShare = document.getElementById('photo-modal-share');
       var btnRoulette = document.getElementById('btn-roulette');
 
       function openPhotoModal(absUrl, returnFocusEl) {
         modalReturnFocus = returnFocusEl || null;
-        modalShareUrl = absUrl;
         photoModalImg.src = absUrl;
         photoModalImg.alt = 'photo';
         photoModal.hidden = false;
@@ -594,7 +555,6 @@
         photoModal.hidden = true;
         document.body.classList.remove('photo-modal-open');
         photoModalImg.removeAttribute('src');
-        modalShareUrl = '';
         var back = modalReturnFocus;
         modalReturnFocus = null;
         if (back && typeof back.focus === 'function') {
@@ -610,22 +570,6 @@
       photoModalBackdrop.addEventListener('click', closePhotoModal);
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && !photoModal.hidden) closePhotoModal();
-      });
-
-      photoModalShare.addEventListener('click', function () {
-        if (!modalShareUrl) return;
-        var title = 'leahguez.com';
-        var text = 'Une photo depuis leahguez.com — ';
-        if (navigator.share) {
-          navigator.share({ title: title, text: text, url: modalShareUrl }).catch(function () {
-            mailtoShare();
-          });
-        } else {
-          mailtoShare();
-        }
-        function mailtoShare() {
-          window.location.href = 'mailto:?subject=' + encodeURIComponent('photo — leahguez.com') + '&body=' + encodeURIComponent(text + modalShareUrl);
-        }
       });
 
       btnRoulette.addEventListener('click', function () {
