@@ -118,6 +118,13 @@
       min-height: 120px;
     }
 
+    .fleur-item .fleur-placeholder {
+      font-size: 2rem;
+      line-height: 1;
+      opacity: 0.35;
+      user-select: none;
+    }
+
     .fleur-item .fleur-img-wrap img {
       width: 100%;
       height: 100%;
@@ -215,36 +222,50 @@
           .replace(/[ç]/g, 'c')
           .replace(/[^a-z0-9-]/g, '');
       }
-      /* Fichiers réels dans fleurs/ — ajoute un .jpg par slug pour une photo dédiée */
-      var slugAvecPhoto = { crocus: 1, mimosa: 1, primevere: 1 };
-      var photosSecours = ['fleurs/crocus.jpg', 'fleurs/mimosa.jpg', 'fleurs/primevere.jpg'];
-      function urlPhotoFleur(nom, indexDansMois) {
+      /* Un fichier fleurs/<slug>.jpg doit exister pour afficher une photo (pas d’image « de secours » d’une autre espèce). */
+      var slugsAvecPhoto = {
+        crocus: 1, glycine: 1, lilas: 1, mimosa: 1, muguet: 1, pivoine: 1, primevere: 1
+      };
+      function urlPhotoFleur(nom) {
         var s = slug(nom);
-        if (slugAvecPhoto[s]) return 'fleurs/' + s + '.jpg';
-        var h = indexDansMois * 31;
-        for (var j = 0; j < nom.length; j++) h += nom.charCodeAt(j);
-        return photosSecours[h % photosSecours.length];
+        if (slugsAvecPhoto[s]) return 'fleurs/' + s + '.jpg';
+        return null;
       }
       var i = new Date().getMonth();
       document.getElementById('fleur-period').textContent = 'En ce moment (' + mois[i] + ')';
       var ul = document.getElementById('fleur-list');
-      fleurs[i].forEach(function (nom, idx) {
+      fleurs[i].forEach(function (nom) {
         var li = document.createElement('li');
         li.className = 'fleur-item';
         var fig = document.createElement('figure');
         var wrap = document.createElement('div');
         wrap.className = 'fleur-img-wrap';
-        var img = document.createElement('img');
-        img.src = urlPhotoFleur(nom, idx);
-        img.alt = nom;
-        img.loading = 'lazy';
-        img.onerror = function () {
-          this.style.display = 'none';
+        var url = urlPhotoFleur(nom);
+        if (url) {
+          var img = document.createElement('img');
+          img.src = url;
+          img.alt = nom;
+          img.loading = 'lazy';
+          img.onerror = function () {
+            this.remove();
+            wrap.classList.add('no-img');
+            var ph = document.createElement('span');
+            ph.className = 'fleur-placeholder';
+            ph.setAttribute('aria-hidden', 'true');
+            ph.textContent = '✿';
+            wrap.appendChild(ph);
+          };
+          wrap.appendChild(img);
+        } else {
           wrap.classList.add('no-img');
-        };
+          var ph = document.createElement('span');
+          ph.className = 'fleur-placeholder';
+          ph.setAttribute('aria-hidden', 'true');
+          ph.textContent = '✿';
+          wrap.appendChild(ph);
+        }
         var cap = document.createElement('figcaption');
         cap.textContent = nom;
-        wrap.appendChild(img);
         fig.appendChild(wrap);
         fig.appendChild(cap);
         li.appendChild(fig);
