@@ -179,12 +179,6 @@
       text-decoration-thickness: 1px;
     }
 
-    .gallery-pick {
-      color: var(--text-soft);
-      font-size: 0.82rem;
-      margin: 0 0 0.35rem 0;
-    }
-
     .gallery-view {
       width: 100%;
       min-width: 0;
@@ -227,33 +221,20 @@
       font-size: clamp(0.9rem, 2.5vw, 0.98rem);
     }
 
-    .photo-panel--nuit .section h2 {
-      color: rgba(180, 210, 255, 0.92);
-      text-shadow:
-        0 0 10px rgba(100, 140, 255, 0.35),
-        0 0 24px rgba(23, 87, 177, 0.45);
-    }
-
-    .gallery-hint {
-      font-weight: 400;
-      color: var(--text-soft);
-      font-size: 0.82rem;
-      margin-bottom: 0.75rem;
+    .photo-panel .section {
+      padding: 0;
+      border: none;
     }
 
     .photo-mosaic {
-      --mosaic-a: rgb(8, 18, 32);
-      --mosaic-b: rgb(18, 12, 28);
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: clamp(10px, 2vw, 16px);
-      padding: 8px;
-      border-radius: 2px;
+      padding: 0;
       width: 100%;
       max-width: 100%;
       box-sizing: border-box;
-      background: linear-gradient(158deg, var(--mosaic-a), var(--mosaic-b));
-      box-shadow: inset 0 0 0 1px rgba(66, 245, 255, 0.1);
+      background: transparent;
     }
 
     .photo-mosaic__cell {
@@ -305,20 +286,15 @@
         <button type="button" class="menu-tab" role="tab" id="tab-jour" aria-controls="panel-jour" aria-selected="false">jour</button>
         <button type="button" class="menu-tab" role="tab" id="tab-nuit" aria-controls="panel-nuit" aria-selected="false">nuit</button>
       </div>
-      <p class="gallery-pick" id="gallery-pick">Clique sur <strong>jour</strong> ou <strong>nuit</strong> pour afficher les photos.</p>
       <div class="gallery-view">
         <div class="photo-panel" id="panel-jour" role="tabpanel" aria-labelledby="tab-jour" hidden>
-          <section class="section" aria-labelledby="jour-title">
-            <h2 id="jour-title">jour</h2>
-            <p class="gallery-hint">Tri par palette (dégradé de teintes).</p>
+          <section class="section" aria-label="photos jour">
             <div class="photo-mosaic" id="photo-grid-jour" aria-busy="true"></div>
             <p class="gallery-error" id="gallery-err-jour" hidden></p>
           </section>
         </div>
         <div class="photo-panel photo-panel--nuit" id="panel-nuit" role="tabpanel" aria-labelledby="tab-nuit" hidden>
-          <section class="section" aria-labelledby="nuit-title">
-            <h2 id="nuit-title">nuit</h2>
-            <p class="gallery-hint">Tri par palette (dégradé de teintes).</p>
+          <section class="section" aria-label="photos nuit">
             <div class="photo-mosaic" id="photo-grid-nuit" aria-busy="true"></div>
             <p class="gallery-error" id="gallery-err-nuit" hidden></p>
           </section>
@@ -333,10 +309,8 @@
       var tabNuit = document.getElementById('tab-nuit');
       var panelJour = document.getElementById('panel-jour');
       var panelNuit = document.getElementById('panel-nuit');
-      var galleryPick = document.getElementById('gallery-pick');
 
       function selectTab(key) {
-        galleryPick.hidden = true;
         if (key === 'jour') {
           panelJour.hidden = false;
           panelNuit.hidden = true;
@@ -361,11 +335,6 @@
           err.textContent = 'Aucune image (lance scripts/build_portfolio.py).';
           grid.removeAttribute('aria-busy');
           return;
-        }
-        var g = block.gradient;
-        if (g && g.length === 2) {
-          grid.style.setProperty('--mosaic-a', g[0]);
-          grid.style.setProperty('--mosaic-b', g[1]);
         }
         block.items.forEach(function (item) {
           var cell = document.createElement('div');
