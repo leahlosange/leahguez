@@ -263,22 +263,9 @@
       gap: clamp(10px, 2vw, 16px);
     }
 
-    /* Décalage volontaire : pas d’alignement horizontal net entre les deux colonnes */
+    /* Décalage d’ensemble seulement : colonnes non alignées, même espacement vertical (gap) partout. */
     .photo-mosaic__col:nth-child(2) {
       padding-top: clamp(18px, 4.2vw, 40px);
-    }
-
-    .photo-mosaic__col:nth-child(2) .photo-mosaic__cell:nth-child(odd) {
-      transform: translateY(clamp(4px, 1.1vw, 10px));
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .photo-mosaic__col:nth-child(2) {
-        padding-top: clamp(8px, 2vw, 16px);
-      }
-      .photo-mosaic__col:nth-child(2) .photo-mosaic__cell:nth-child(odd) {
-        transform: none;
-      }
     }
 
     .photo-mosaic__cell {
