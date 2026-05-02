@@ -4,22 +4,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>leahguez.com</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#00040A">
   <style>
+    @font-face {
+      font-family: 'Neue Haas Grotesk Text';
+      src: url('fonts/NeueHaasGrotText-55Roman-Trial.otf') format('opentype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Neue Haas Grotesk Text';
+      src: url('fonts/NeueHaasGrotText-75Bold-Trial.otf') format('opentype');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
     :root {
-      --bg: #faf8f5;
-      --card: #fff;
-      --text: #2c2a26;
-      --text-soft: #5c5a56;
-      --accent: #8b7355;
-      --accent-light: #c4a77d;
-      --flower: #9a7b4f;
-      --shadow: 0 4px 20px rgba(44, 42, 38, 0.08);
-      --radius: 16px;
-      --font-title: 'Cormorant Garamond', Georgia, serif;
-      --font-body: 'Outfit', system-ui, sans-serif;
+      --bg: #00040A;
+      --text: #e8f4f8;
+      --text-soft: rgba(232, 244, 248, 0.72);
+      --cyan: #42F5FF;
+      --cyan-deep: #1757B1;
+      --font-display: 'Neue Haas Grotesk Text', 'Helvetica Neue', Helvetica, system-ui, sans-serif;
+      --font-body: 'Neue Haas Grotesk Text', 'Helvetica Neue', Helvetica, system-ui, sans-serif;
     }
 
     * {
@@ -45,20 +54,32 @@
 
     header {
       text-align: center;
-      padding: clamp(2rem, 8vw, 4rem) 0;
+      padding: clamp(2.5rem, 10vw, 5rem) 0 clamp(2rem, 6vw, 3rem);
     }
 
-    h1 {
-      font-family: var(--font-title);
-      font-size: clamp(1.75rem, 6vw, 2.5rem);
-      font-weight: 600;
-      color: var(--text);
-      letter-spacing: 0.02em;
+    /* Inspo inspo/Text.png : crédit néon, cœur cyan, halo bleu très diffus */
+    .site-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(2.5rem, 11vw, 4.25rem);
+      line-height: 1.02;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin: 0;
+      text-shadow:
+        0 0 1px rgba(66, 245, 255, 1),
+        0 0 4px rgba(66, 245, 255, 0.9),
+        0 0 12px rgba(66, 245, 255, 0.55),
+        0 0 28px rgba(23, 87, 177, 0.95),
+        0 0 48px rgba(23, 87, 177, 0.75),
+        0 0 72px rgba(23, 87, 177, 0.5),
+        0 0 96px rgba(23, 87, 177, 0.35);
     }
 
     .section {
       padding: clamp(2rem, 6vw, 3rem) 0;
-      border-bottom: 1px solid rgba(44, 42, 38, 0.06);
+      border-bottom: 1px solid rgba(66, 245, 255, 0.12);
     }
 
     .section:last-of-type {
@@ -66,12 +87,14 @@
     }
 
     .section h2 {
-      font-family: var(--font-title);
-      font-size: clamp(1.2rem, 3.5vw, 1.45rem);
-      font-weight: 600;
-      color: var(--text);
-      letter-spacing: 0.02em;
+      font-family: var(--font-body);
+      font-size: clamp(1.05rem, 3.2vw, 1.25rem);
+      font-weight: 700;
+      color: var(--cyan);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
       margin-bottom: 0.5rem;
+      text-shadow: 0 0 20px rgba(23, 87, 177, 0.45);
     }
 
     .section p {
@@ -108,7 +131,7 @@
       aspect-ratio: 1;
       overflow: hidden;
       margin-bottom: 0.5rem;
-      background: rgba(44, 42, 38, 0.06);
+      background: rgba(23, 87, 177, 0.15);
     }
 
     .fleur-item .fleur-img-wrap.no-img {
@@ -121,7 +144,8 @@
     .fleur-item .fleur-placeholder {
       font-size: 2rem;
       line-height: 1;
-      opacity: 0.35;
+      opacity: 0.4;
+      color: var(--cyan-deep);
       user-select: none;
     }
 
@@ -138,11 +162,11 @@
     }
 
     .fleur-item figcaption {
-      font-family: var(--font-title);
+      font-family: var(--font-body);
       font-size: 0.95rem;
-      font-weight: 500;
+      font-weight: 400;
       color: var(--text);
-      letter-spacing: 0.01em;
+      letter-spacing: 0.02em;
     }
 
     .photo-wrap {
@@ -150,8 +174,9 @@
       max-width: 480px;
       margin: 0 auto;
       overflow: hidden;
-      background: transparent;
+      background: rgba(23, 87, 177, 0.12);
       aspect-ratio: 4/3;
+      box-shadow: 0 0 0 1px rgba(66, 245, 255, 0.15), 0 0 32px rgba(23, 87, 177, 0.25);
     }
 
     .photo-wrap img {
@@ -172,7 +197,7 @@
 <body>
   <div class="container">
     <header>
-      <h1>leahguez.com</h1>
+      <h1 class="site-title">Leah Guez</h1>
     </header>
 
     <section class="section" aria-labelledby="calendrier-title">
