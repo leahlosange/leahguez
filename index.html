@@ -230,7 +230,7 @@
       --mosaic-b: rgb(18, 12, 28);
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 5px;
+      gap: clamp(10px, 2vw, 16px);
       padding: 8px;
       border-radius: 2px;
       background: linear-gradient(158deg, var(--mosaic-a), var(--mosaic-b));
@@ -241,8 +241,11 @@
       position: relative;
       overflow: hidden;
       border-left: 3px solid var(--accent, rgba(66, 245, 255, 0.25));
-      background: rgba(0, 4, 10, 0.4);
+      background: #fff;
       line-height: 0;
+      padding: clamp(8px, 1.5vw, 14px);
+      padding-bottom: clamp(10px, 1.8vw, 16px);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     }
 
     .photo-mosaic__cell img {
@@ -250,6 +253,7 @@
       height: auto;
       display: block;
       vertical-align: middle;
+      background: #0a0a0a;
       transition: transform 0.35s ease, filter 0.35s ease;
     }
 
