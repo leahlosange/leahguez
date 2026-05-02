@@ -212,22 +212,36 @@
           .replace(/['']/g, '-')
           .replace(/[àâä]/g, 'a').replace(/[éèêë]/g, 'e').replace(/[îï]/g, 'i')
           .replace(/[ôö]/g, 'o').replace(/[ùûü]/g, 'u').replace(/[œ]/g, 'oe')
+          .replace(/[ç]/g, 'c')
           .replace(/[^a-z0-9-]/g, '');
+      }
+      /* Fichiers réels dans fleurs/ — ajoute un .jpg par slug pour une photo dédiée */
+      var slugAvecPhoto = { crocus: 1, mimosa: 1, primevere: 1 };
+      var photosSecours = ['fleurs/crocus.jpg', 'fleurs/mimosa.jpg', 'fleurs/primevere.jpg'];
+      function urlPhotoFleur(nom, indexDansMois) {
+        var s = slug(nom);
+        if (slugAvecPhoto[s]) return 'fleurs/' + s + '.jpg';
+        var h = indexDansMois * 31;
+        for (var j = 0; j < nom.length; j++) h += nom.charCodeAt(j);
+        return photosSecours[h % photosSecours.length];
       }
       var i = new Date().getMonth();
       document.getElementById('fleur-period').textContent = 'En ce moment (' + mois[i] + ')';
       var ul = document.getElementById('fleur-list');
-      fleurs[i].forEach(function (nom) {
+      fleurs[i].forEach(function (nom, idx) {
         var li = document.createElement('li');
         li.className = 'fleur-item';
         var fig = document.createElement('figure');
         var wrap = document.createElement('div');
         wrap.className = 'fleur-img-wrap';
         var img = document.createElement('img');
-        img.src = 'fleurs/' + slug(nom) + '.jpg';
+        img.src = urlPhotoFleur(nom, idx);
         img.alt = nom;
         img.loading = 'lazy';
-        img.onerror = function () { this.style.display = 'none'; this.parentNode.classList.add('no-img'); };
+        img.onerror = function () {
+          this.style.display = 'none';
+          wrap.classList.add('no-img');
+        };
         var cap = document.createElement('figcaption');
         cap.textContent = nom;
         wrap.appendChild(img);
