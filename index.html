@@ -129,7 +129,7 @@
       position: fixed;
       inset: 0;
       pointer-events: none;
-      z-index: 9998;
+      z-index: 1;
       opacity: 0.22;
       mix-blend-mode: soft-light;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -142,7 +142,7 @@
       position: fixed;
       inset: 0;
       pointer-events: none;
-      z-index: 9997;
+      z-index: 1;
       background:
         radial-gradient(ellipse 85% 75% at 50% 45%, transparent 40%, rgba(0, 4, 10, 0.65) 100%),
         repeating-linear-gradient(
@@ -175,7 +175,6 @@
 
     .shell {
       position: relative;
-      z-index: 1;
       min-height: 100vh;
     }
 
@@ -318,13 +317,15 @@
 
     .photo-mosaic__cell {
       position: relative;
+      z-index: 2;
+      isolation: isolate;
       overflow: hidden;
-      border-left: 3px solid var(--accent, rgba(66, 245, 255, 0.25));
+      border: none;
       background: #fff;
       line-height: 0;
       padding: clamp(4px, 0.75vw, 7px);
       padding-bottom: clamp(5px, 0.9vw, 8px);
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+      box-shadow: none;
       cursor: pointer;
     }
 
@@ -348,8 +349,7 @@
     }
 
     .photo-mosaic__cell:hover img {
-      transform: scale(1.02);
-      filter: brightness(1.06);
+      transform: scale(0.96);
     }
 
     .gallery-error {
@@ -540,20 +540,6 @@
       border-top: 1px solid rgba(66, 245, 255, 0.12);
     }
 
-    .site-footer__heading {
-      font-family: var(--font-body);
-      font-weight: 700;
-      font-size: clamp(0.78rem, 2.1vw, 0.92rem);
-      letter-spacing: 0.04em;
-      text-transform: lowercase;
-      color: var(--cyan);
-      filter: blur(0.35px);
-      text-shadow:
-        0 0 8px rgba(66, 245, 255, 0.35),
-        0 0 22px rgba(23, 87, 177, 0.4);
-      margin-bottom: 0.55rem;
-    }
-
     .site-footer__links {
       list-style: none;
       display: flex;
@@ -575,10 +561,27 @@
       transition: color 0.15s ease, opacity 0.15s ease;
     }
 
+    .site-footer__links a.site-footer__email {
+      font-weight: 700;
+      font-size: clamp(0.78rem, 2.1vw, 0.92rem);
+      letter-spacing: 0.04em;
+      color: var(--cyan);
+      filter: blur(0.35px);
+      text-shadow:
+        0 0 8px rgba(66, 245, 255, 0.35),
+        0 0 22px rgba(23, 87, 177, 0.4);
+    }
+
     .site-footer__links a:hover,
     .site-footer__links a:focus-visible {
       color: var(--cyan);
       opacity: 1;
+    }
+
+    .site-footer__links a.site-footer__email:hover,
+    .site-footer__links a.site-footer__email:focus-visible {
+      opacity: 0.9;
+      color: var(--cyan);
     }
 
     .site-footer__sep {
@@ -621,9 +624,8 @@
     </nav>
 
     <footer class="site-footer" aria-label="Contact">
-      <p class="site-footer__heading">contact</p>
       <ul class="site-footer__links">
-        <li><a href="mailto:contact@leahguez.com">contact@leahguez.com</a></li>
+        <li><a class="site-footer__email" href="mailto:contact@leahguez.com">contact@leahguez.com</a></li>
         <li class="site-footer__sep" aria-hidden="true">·</li>
         <li><a href="https://www.instagram.com/uncoeuraufront/" rel="noopener noreferrer" target="_blank">instagram</a></li>
         <li class="site-footer__sep" aria-hidden="true">·</li>
@@ -653,6 +655,11 @@
       var modalScrollY = 0;
       var modalScrollParent = null;
       var modalScrollParentTop = 0;
+      var photoModalIsOpen = false;
+
+      if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+      }
 
       function findInnerScrollParent(node) {
         if (!node) return null;
@@ -743,6 +750,7 @@
       function openPhotoModal(absUrl, returnFocusEl) {
         modalReturnFocus = returnFocusEl || null;
         captureDocumentScroll(returnFocusEl);
+        photoModalIsOpen = true;
         photoModalImg.src = absUrl;
         photoModalImg.alt = 'photo';
         lockScrollForModal();
@@ -755,31 +763,17 @@
       }
 
       function closePhotoModal() {
-        var back = modalReturnFocus;
+        photoModal.hidden = true;
+        photoModalIsOpen = false;
         try {
           if (document.activeElement) document.activeElement.blur();
         } catch (e) {}
-        photoModal.hidden = true;
         unlockScrollAfterModal();
         photoModalImg.removeAttribute('src');
         modalReturnFocus = null;
-        var focusOpts = { preventScroll: true };
-        if (back && typeof back.focus === 'function') {
-          try {
-            back.focus(focusOpts);
-          } catch (e) {
-            try {
-              back.focus();
-            } catch (e2) {}
-          }
-        } else {
-          try {
-            btnRoulette.focus(focusOpts);
-          } catch (e) {
-            btnRoulette.focus();
-          }
-        }
         scheduleScrollRestore();
+        setTimeout(applySavedScroll, 200);
+        setTimeout(applySavedScroll, 450);
       }
 
       photoModalClose.addEventListener('click', closePhotoModal);
@@ -880,6 +874,10 @@
           cell.setAttribute('tabindex', '0');
           cell.setAttribute('aria-label', 'Agrandir la photo');
           cell.style.setProperty('--accent', item.accent);
+          cell.addEventListener('mousedown', function (e) {
+            if (e.button !== 0) return;
+            captureDocumentScroll(cell);
+          });
           var img = document.createElement('img');
           img.src = item.src;
           img.alt = '';
@@ -917,8 +915,12 @@
         if (typeof ResizeObserver !== 'undefined') {
           var t;
           var ro = new ResizeObserver(function () {
+            if (photoModalIsOpen || !photoModal.hidden) return;
             clearTimeout(t);
-            t = setTimeout(distribute, 120);
+            t = setTimeout(function () {
+              distribute();
+              applySavedScroll();
+            }, 120);
           });
           ro.observe(grid);
         }
