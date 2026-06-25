@@ -3,30 +3,71 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>leah guez</title>
+  <title>Leah Guez — creative</title>
   <meta name="theme-color" content="#00040A">
-  <meta name="description" content="Portfolio photo — séries jour et nuit.">
+  <meta name="description" content="Leah Guez, creative. Portfolio photo — séries jour et nuit. Galeries, contact et book sur leahguez.com.">
+  <meta name="author" content="Leah Guez">
+  <meta name="robots" content="index, follow">
 
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="me" href="https://www.instagram.com/uncoeuraufront/">
 
   <link rel="canonical" href="https://leahguez.com/">
 
   <!-- Aperçu du lien (messages, réseaux) : Open Graph + Twitter -->
-  <meta property="og:site_name" content="leah guez">
-  <meta property="og:title" content="leah guez — portfolio">
-  <meta property="og:description" content="Photographies jour &amp; nuit.">
+  <meta property="og:site_name" content="Leah Guez">
+  <meta property="og:title" content="Leah Guez — creative">
+  <meta property="og:description" content="Leah Guez, creative. Portfolio photo — séries jour et nuit.">
   <meta property="og:url" content="https://leahguez.com/">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="fr_FR">
   <meta property="og:image" content="https://leahguez.com/photos/moi.jpg">
   <meta property="og:image:width" content="4928">
   <meta property="og:image:height" content="3264">
-  <meta property="og:image:alt" content="leah guez — aperçu du site">
+  <meta property="og:image:alt" content="Leah Guez — creative">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="leah guez — portfolio">
-  <meta name="twitter:description" content="Photographies jour &amp; nuit.">
+  <meta name="twitter:title" content="Leah Guez — creative">
+  <meta name="twitter:description" content="Leah Guez, creative. Portfolio photo — séries jour et nuit.">
   <meta name="twitter:image" content="https://leahguez.com/photos/moi.jpg">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://leahguez.com/#website",
+        "url": "https://leahguez.com/",
+        "name": "Leah Guez",
+        "description": "Portfolio photo de Leah Guez — séries jour et nuit.",
+        "inLanguage": "fr-FR"
+      },
+      {
+        "@type": "Person",
+        "@id": "https://leahguez.com/#person",
+        "name": "Leah Guez",
+        "url": "https://leahguez.com/",
+        "image": "https://leahguez.com/photos/moi.jpg",
+        "jobTitle": "Creative",
+        "email": "7583leah@gmail.com",
+        "sameAs": [
+          "https://www.instagram.com/uncoeuraufront/",
+          "https://www.linkedin.com/in/leah-guez/"
+        ]
+      },
+      {
+        "@type": "ProfilePage",
+        "@id": "https://leahguez.com/#profile",
+        "url": "https://leahguez.com/",
+        "name": "Leah Guez — creative",
+        "isPartOf": { "@id": "https://leahguez.com/#website" },
+        "about": { "@id": "https://leahguez.com/#person" },
+        "inLanguage": "fr-FR"
+      }
+    ]
+  }
+  </script>
 
   <style>
     @font-face {
@@ -127,39 +168,8 @@
       min-height: 100vh;
     }
 
-    .brand {
-      position: absolute;
-      top: var(--menu-pad);
-      left: var(--menu-pad);
-      z-index: 3;
-      pointer-events: none;
-    }
-
-    .site-title {
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: clamp(1.25rem, 5.5vw, 2.125rem);
-      line-height: 1.02;
-      letter-spacing: 0.04em;
-      text-transform: lowercase;
-      color: var(--cyan);
-      margin: 0;
-      text-align: left;
-      -webkit-font-smoothing: antialiased;
-      filter: blur(0.65px);
-      text-shadow:
-        0 0 4px rgba(66, 245, 255, 0.95),
-        0 0 14px rgba(66, 245, 255, 0.55),
-        0 0 26px rgba(23, 87, 177, 0.92),
-        0 0 48px rgba(23, 87, 177, 0.68),
-        0 0 76px rgba(23, 87, 177, 0.42),
-        0 0 100px rgba(23, 87, 177, 0.22),
-        0.5px 0 3px rgba(255, 80, 120, 0.12),
-        -0.5px 0 3px rgba(80, 180, 255, 0.12);
-    }
-
     .side-menu {
-      padding: calc(3.25rem + clamp(1.25rem, 5.5vw, 2.125rem)) var(--menu-pad) var(--menu-pad);
+      padding: var(--menu-pad);
       display: flex;
       flex-direction: column;
       gap: 0.65rem;
@@ -191,7 +201,7 @@
       font-family: var(--font-body);
       font-weight: 700;
       font-size: clamp(0.85rem, 2.4vw, 1rem);
-      letter-spacing: 0.14em;
+      letter-spacing: 0.04em;
       text-transform: lowercase;
       color: var(--cyan);
       filter: blur(0.35px);
@@ -247,7 +257,7 @@
       font-size: clamp(1.05rem, 3.2vw, 1.25rem);
       font-weight: 700;
       color: var(--cyan);
-      letter-spacing: 0.06em;
+      letter-spacing: 0.04em;
       text-transform: lowercase;
       margin-bottom: 0.5rem;
       filter: blur(0.35px);
@@ -286,9 +296,13 @@
       gap: clamp(10px, 2vw, 16px);
     }
 
-    /* Décalage d’ensemble seulement : colonnes non alignées, même espacement vertical (gap) partout. */
+    /* Décalage d’ensemble : colonnes non alignées, gap vertical uniforme. */
     .photo-mosaic__col:nth-child(2) {
-      padding-top: clamp(18px, 4.2vw, 40px);
+      padding-top: clamp(14px, 3.2vw, 32px);
+    }
+
+    .photo-mosaic__col:nth-child(3) {
+      padding-top: clamp(28px, 6.4vw, 64px);
     }
 
     .photo-mosaic__cell {
@@ -508,19 +522,69 @@
         gap: 8px;
       }
     }
+
+    .site-footer {
+      margin-top: clamp(1.5rem, 4vw, 2.5rem);
+      padding: clamp(1rem, 3vw, 1.35rem) var(--menu-pad) clamp(1.25rem, 4vw, 2rem);
+      border-top: 1px solid rgba(66, 245, 255, 0.12);
+    }
+
+    .site-footer__heading {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: clamp(0.78rem, 2.1vw, 0.92rem);
+      letter-spacing: 0.04em;
+      text-transform: lowercase;
+      color: var(--cyan);
+      filter: blur(0.35px);
+      text-shadow:
+        0 0 8px rgba(66, 245, 255, 0.35),
+        0 0 22px rgba(23, 87, 177, 0.4);
+      margin-bottom: 0.55rem;
+    }
+
+    .site-footer__links {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.35rem 0.85rem;
+      margin: 0;
+      padding: 0;
+    }
+
+    .site-footer__links a {
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: clamp(0.82rem, 2.2vw, 0.95rem);
+      letter-spacing: 0.06em;
+      text-transform: lowercase;
+      color: var(--text-soft);
+      text-decoration: none;
+      transition: color 0.15s ease, opacity 0.15s ease;
+    }
+
+    .site-footer__links a:hover,
+    .site-footer__links a:focus-visible {
+      color: var(--cyan);
+      opacity: 1;
+    }
+
+    .site-footer__sep {
+      color: rgba(66, 245, 255, 0.28);
+      user-select: none;
+      font-size: 0.75rem;
+    }
   </style>
 </head>
 <body>
   <div class="shell">
-    <div class="brand">
-      <h1 class="site-title">leah guez</h1>
-    </div>
-
     <nav class="side-menu" aria-label="Navigation">
+      <h1 class="visually-hidden">Leah Guez — creative</h1>
       <div class="menu-row">
         <div class="menu-tabs" role="tablist" aria-label="jour ou nuit">
           <button type="button" class="menu-tab" role="tab" id="tab-jour" aria-controls="panel-jour" aria-selected="false">jour</button>
-          <button type="button" class="menu-tab" role="tab" id="tab-nuit" aria-controls="panel-nuit" aria-selected="false">nuit</button>
+          <button type="button" class="menu-tab" role="tab" id="tab-nuit" aria-controls="panel-nuit" aria-selected="true">nuit</button>
         </div>
         <div class="roulette-wrap">
           <button type="button" class="btn-roulette" id="btn-roulette" aria-haspopup="dialog">
@@ -536,7 +600,7 @@
             <p class="gallery-error" id="gallery-err-jour" hidden></p>
           </section>
         </div>
-        <div class="photo-panel photo-panel--nuit" id="panel-nuit" role="tabpanel" aria-labelledby="tab-nuit" hidden>
+        <div class="photo-panel photo-panel--nuit" id="panel-nuit" role="tabpanel" aria-labelledby="tab-nuit">
           <section class="section" aria-label="photos nuit">
             <div class="photo-mosaic" id="photo-grid-nuit" aria-busy="true"></div>
             <p class="gallery-error" id="gallery-err-nuit" hidden></p>
@@ -544,6 +608,17 @@
         </div>
       </div>
     </nav>
+
+    <footer class="site-footer" aria-label="Contact">
+      <p class="site-footer__heading">contact</p>
+      <ul class="site-footer__links">
+        <li><a href="mailto:7583leah@gmail.com">7583leah@gmail.com</a></li>
+        <li class="site-footer__sep" aria-hidden="true">·</li>
+        <li><a href="https://www.instagram.com/uncoeuraufront/" rel="noopener noreferrer" target="_blank">instagram</a></li>
+        <li class="site-footer__sep" aria-hidden="true">·</li>
+        <li><a href="https://www.linkedin.com/in/leah-guez/" rel="noopener noreferrer" target="_blank">linkedin</a></li>
+      </ul>
+    </footer>
   </div>
 
   <div class="photo-modal" id="photo-modal" hidden role="dialog" aria-modal="true" aria-labelledby="photo-modal-title">
@@ -709,6 +784,13 @@
         openPhotoModal(abs);
       });
 
+      function updateTabLabels(jourBlock, nuitBlock) {
+        var jc = jourBlock && jourBlock.items ? jourBlock.items.length : 0;
+        var nc = nuitBlock && nuitBlock.items ? nuitBlock.items.length : 0;
+        tabJour.textContent = 'jour (' + jc + ')';
+        tabNuit.textContent = 'nuit (' + nc + ')';
+      }
+
       function selectTab(key) {
         if (key === 'jour') {
           panelJour.hidden = false;
@@ -725,6 +807,7 @@
 
       tabJour.addEventListener('click', function () { selectTab('jour'); });
       tabNuit.addEventListener('click', function () { selectTab('nuit'); });
+      selectTab('nuit');
 
       function fillMosaic(gridId, errId, block) {
         var grid = document.getElementById(gridId);
@@ -737,16 +820,18 @@
           return;
         }
         err.hidden = true;
-        var colA = document.createElement('div');
-        var colB = document.createElement('div');
-        colA.className = 'photo-mosaic__col';
-        colB.className = 'photo-mosaic__col';
-        grid.appendChild(colA);
-        grid.appendChild(colB);
-        var cols = [colA, colB];
+        var COL_COUNT = 3;
+        var cols = [];
+        var heights = [];
+        for (var ci = 0; ci < COL_COUNT; ci++) {
+          var colEl = document.createElement('div');
+          colEl.className = 'photo-mosaic__col';
+          grid.appendChild(colEl);
+          cols.push(colEl);
+          heights.push(0);
+        }
         var GAP = 14;
         var CELL_PAD = 20;
-        /* Évite deux colonnes de hauteur quasi identique (répartition légèrement biaisée). */
         var COL_BIAS = 1.06;
 
         function estimateColWidth() {
@@ -754,7 +839,21 @@
           if (w < 48) {
             w = Math.min(1400, Math.max(320, window.innerWidth - 32));
           }
-          return Math.max(72, (w - GAP) / 2 - 12);
+          var gapsTotal = GAP * (COL_COUNT - 1);
+          return Math.max(48, (w - gapsTotal) / COL_COUNT - 8);
+        }
+
+        function shortestColIndex() {
+          var best = 0;
+          var bestScore = heights[0] * COL_BIAS;
+          for (var i = 1; i < COL_COUNT; i++) {
+            var score = heights[i] * (i % 2 === 0 ? COL_BIAS : 1);
+            if (score < bestScore) {
+              bestScore = score;
+              best = i;
+            }
+          }
+          return best;
         }
 
         function estCellHeight(item) {
@@ -790,17 +889,13 @@
         }
 
         function distribute() {
-          colA.textContent = '';
-          colB.textContent = '';
-          var h0 = 0;
-          var h1 = 0;
+          for (var c = 0; c < COL_COUNT; c++) {
+            cols[c].textContent = '';
+            heights[c] = 0;
+          }
           block.items.forEach(function (item) {
-            var idx = h0 * COL_BIAS <= h1 ? 0 : 1;
-            if (idx === 0) {
-              h0 += estCellHeight(item);
-            } else {
-              h1 += estCellHeight(item);
-            }
+            var idx = shortestColIndex();
+            heights[idx] += estCellHeight(item);
             buildCell(item, cols[idx]);
           });
         }
@@ -818,12 +913,63 @@
         }
       }
 
+      var SESSION_ORDER_PREFIX = 'lg-portfolio-order-';
+
+      function shuffleArray(arr) {
+        var a = arr.slice();
+        for (var i = a.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var tmp = a[i];
+          a[i] = a[j];
+          a[j] = tmp;
+        }
+        return a;
+      }
+
+      function sameSrcList(a, b) {
+        if (!a || !b || a.length !== b.length) return false;
+        var seen = {};
+        for (var i = 0; i < a.length; i++) seen[a[i]] = true;
+        for (var j = 0; j < b.length; j++) {
+          if (!seen[b[j]]) return false;
+        }
+        return true;
+      }
+
+      /** Ordre aléatoire par visite (sessionStorage) ; inchangé au refresh. */
+      function orderItemsForSession(items, key) {
+        if (!items || !items.length) return items;
+        var storageKey = SESSION_ORDER_PREFIX + key;
+        var currentSrcs = items.map(function (it) { return it.src; });
+        var saved = null;
+        try {
+          saved = JSON.parse(sessionStorage.getItem(storageKey));
+        } catch (e) {}
+        var bySrc = {};
+        items.forEach(function (it) { bySrc[it.src] = it; });
+        if (saved && sameSrcList(saved, currentSrcs)) {
+          return saved.map(function (src) { return bySrc[src]; }).filter(Boolean);
+        }
+        var shuffled = shuffleArray(items);
+        try {
+          sessionStorage.setItem(storageKey, JSON.stringify(shuffled.map(function (it) { return it.src; })));
+        } catch (e) {}
+        return shuffled;
+      }
+
       fetch('portfolio/manifest.json')
         .then(function (r) {
           if (!r.ok) throw new Error(r.status);
           return r.json();
         })
         .then(function (data) {
+          if (data.jour && data.jour.items) {
+            data.jour.items = orderItemsForSession(data.jour.items, 'jour');
+          }
+          if (data.nuit && data.nuit.items) {
+            data.nuit.items = orderItemsForSession(data.nuit.items, 'nuit');
+          }
+          updateTabLabels(data.jour, data.nuit);
           fillMosaic('photo-grid-jour', 'gallery-err-jour', data.jour);
           fillMosaic('photo-grid-nuit', 'gallery-err-nuit', data.nuit);
           allPhotoSrcs = [];
